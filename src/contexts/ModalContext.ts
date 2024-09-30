@@ -1,10 +1,10 @@
-import React from "react";
+import { createContext } from "react";
 
 interface IProp {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const ModalContext = React.createContext<IProp>({
+const ModalContext = createContext<IProp>({
   isModalOpen: false,
   setIsModalOpen: () => {},
 });

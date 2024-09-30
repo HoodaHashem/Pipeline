@@ -1,10 +1,10 @@
-import React from "react";
+import { createContext } from "react";
 
 interface IProp {
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const LoadingContext = React.createContext<IProp>({
+const LoadingContext = createContext<IProp>({
   isLoading: false,
   setIsLoading: () => {},
 });
