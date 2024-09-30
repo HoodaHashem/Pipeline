@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../../components/Header/Navbar";
 import Modal from "../../components/Ui/Modal";
 import { useContext } from "react";
-import ModalContext from "../../Contexts/ModalContext";
+import ModalContext from "../../contexts/ModalContext";
 import InternalServerError from "../../components/Ui/InternalServerError";
 
 const AuthLayout = () => {

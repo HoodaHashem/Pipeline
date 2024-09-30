@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import LoadingContext from "../Contexts/LoadingContext";
+import LoadingContext from "../contexts/LoadingContext";
 
 interface IProp {
   children: ReactNode;

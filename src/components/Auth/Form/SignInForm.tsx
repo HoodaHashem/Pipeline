@@ -6,9 +6,9 @@ import {
   createHandleChange,
 } from "../../../lib/helpers/forms";
 import { IStateSignIn } from "../../../lib/interfaces";
-import ModalContext from "../../../Contexts/ModalContext";
+import ModalContext from "../../../contexts/ModalContext";
 import { useContext } from "react";
-import LoadingContext from "../../../Contexts/LoadingContext";
+import LoadingContext from "../../../contexts/LoadingContext";
 import SecondaryLoader from "../../Ui/SecondaryLoader/SecondaryLoader";
 import { Navigate } from "react-router-dom";
 

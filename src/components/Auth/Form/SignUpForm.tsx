@@ -6,8 +6,8 @@ import {
   signUpReducer,
 } from "../../../lib/helpers/forms";
 import { IStateSignUp } from "../../../lib/interfaces";
-import ModalContext from "../../../Contexts/ModalContext";
-import LoadingContext from "../../../Contexts/LoadingContext";
+import ModalContext from "../../../contexts/ModalContext";
+import LoadingContext from "../../../contexts/LoadingContext";
 import SecondaryLoader from "../../Ui/SecondaryLoader/SecondaryLoader";
 import { Navigate } from "react-router-dom";
 
