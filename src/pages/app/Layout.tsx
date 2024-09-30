@@ -2,15 +2,19 @@ import { Outlet } from "react-router-dom";
 import Modal from "../../components/Ui/Modal";
 import InternalServerError from "../../components/Ui/InternalServerError";
 import Sidebar from "../../components/App/Sidebar/Sidebar";
-import useModal from "../../hooks/useModal";
+import useInternalServerError from "../../hooks/useInternalServerError";
 
 const AppLayout = () => {
-  const { isModalOpen, setIsModalOpen } = useModal();
+  const { isInternalServerError, setIsInternalServerError } =
+    useInternalServerError();
   return (
     <div className="h-screen bg-bg">
       <Sidebar />
-      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <InternalServerError close={() => setIsModalOpen(false)} />
+      <Modal
+        open={isInternalServerError}
+        onClose={() => setIsInternalServerError(false)}
+      >
+        <InternalServerError close={() => setIsInternalServerError(false)} />
       </Modal>
       <Outlet />
     </div>

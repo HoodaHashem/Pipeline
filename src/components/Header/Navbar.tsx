@@ -11,7 +11,7 @@ const Header = () => {
   };
 
   return (
-    <header className="border-b-2 border-first">
+    <header className="border-b-2 border-first transition-all duration-200">
       <nav className="flex flex-wrap justify-between items-center w-[90%] mx-auto py-1">
         <a href="#" className="flex items-center">
           <img

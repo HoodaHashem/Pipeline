@@ -104,7 +104,7 @@ const LoginSignup = () => {
   }, []);
 
   return (
-    <div className="bg-bg flex justify-center items-center min-h-screen p-4">
+    <div className="bg-bg flex justify-center items-center min-h-screen p-4 transition-all duration-500 ease-in-out">
       <div
         className={`bg-third dark:bg-first text-text rounded-lg shadow-[0_14px_28px_rgba(0,0,0,0.25),_0_10px_10px_rgba(0,0,0,0.22)] relative overflow-hidden ${isSmallScreen ? "w-full" : "w-[75%]"} max-w-full ${isSmallScreen ? "h-[1000px]" : "min-h-[550px]"}`}
       >

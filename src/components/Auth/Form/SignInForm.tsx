@@ -49,7 +49,7 @@ const SignInForm = () => {
       <Input
         id="userIdentifier"
         inputType="text"
-        label="Email or Username or Phone Number"
+        label="Email or username or phone"
         value={userIdentifier}
         inputValue={userIdentifier}
         onChange={handleChange}

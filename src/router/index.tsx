@@ -19,7 +19,7 @@ const router = createBrowserRouter(
         <Route index element={<AuthPage />} />
       </Route>
       <Route path="/app" element={<AppLayout />}>
-        {/* <Route index element={<App />} /> */}
+        <Route index element={<App />} />
       </Route>
     </>,
   ),

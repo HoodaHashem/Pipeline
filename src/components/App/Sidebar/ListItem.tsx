@@ -4,7 +4,7 @@ interface IProp {
   children: ReactNode;
 }
 const ListItem = ({ children }: IProp) => {
-  return <li className="p-5">{children}</li>;
+  return <li className="p-5 cursor-pointer">{children}</li>;
 };
 
 export default ListItem;

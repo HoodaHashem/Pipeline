@@ -7,7 +7,7 @@ const AuthLayout = () => {
   const { isInternalServerError, setIsInternalServerError } =
     useInternalServerError();
   return (
-    <div className="h-screen bg-bg">
+    <div className="h-screen bg-bg ">
       <Navbar />
       <Modal
         open={isInternalServerError}
