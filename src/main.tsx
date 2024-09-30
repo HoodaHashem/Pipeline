@@ -5,6 +5,7 @@ import "./styles/index.css";
 import { ModalProvider } from "./providers/ModalProvider";
 import { LoadingProvider } from "./providers/LoadingProvider";
 import { InternalServerProvider } from "./providers/InternalServerProvider.tsx";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <InternalServerProvider>
