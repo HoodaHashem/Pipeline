@@ -26,14 +26,14 @@ const SignUpForm = () => {
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
   const { setIsModalOpen } = useContext(ModalContext);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
+  const [apiApproval, setApiApproval] = useState(false);
 
   const { email, fullName, username, confirmPassword, password, phone } =
     formState as IStateSignUp;
 
-  let apiApproval: boolean = false;
   const handleChange = createHandleChange(dispatch, setErrors, password);
   const handleSubmit = handleSubmitSignUp(
-    apiApproval,
+    setApiApproval,
     setIsLoading,
     setIsModalOpen,
     formState,
