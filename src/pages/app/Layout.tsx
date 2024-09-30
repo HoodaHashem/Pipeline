@@ -1,12 +1,11 @@
 import { Outlet } from "react-router-dom";
 import Modal from "../../components/Ui/Modal";
-import { useContext } from "react";
-import ModalContext from "../../contexts/ModalContext";
 import InternalServerError from "../../components/Ui/InternalServerError";
 import Sidebar from "../../components/App/Sidebar/Sidebar";
+import useModal from "../../hooks/useModal";
 
 const AppLayout = () => {
-  const { isModalOpen, setIsModalOpen } = useContext(ModalContext);
+  const { isModalOpen, setIsModalOpen } = useModal();
   return (
     <div className="h-screen bg-bg">
       <Sidebar />
