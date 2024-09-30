@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import ModalContext from "../../lib/Contexts/ModalContext";
+import ModalContext from "../Contexts/ModalContext";
 
 interface IProp {
   children: ReactNode;

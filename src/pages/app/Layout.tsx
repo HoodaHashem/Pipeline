@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Modal from "../../components/Ui/Modal";
 import { useContext } from "react";
-import ModalContext from "../../lib/Contexts/ModalContext";
+import ModalContext from "../../Contexts/ModalContext";
 import InternalServerError from "../../components/Ui/InternalServerError";
 import Sidebar from "../../components/App/Sidebar/Sidebar";
 

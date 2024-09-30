@@ -6,8 +6,8 @@ import {
   signUpReducer,
 } from "../../../lib/helpers/forms";
 import { IStateSignUp } from "../../../lib/interfaces";
-import ModalContext from "../../../lib/Contexts/ModalContext";
-import LoadingContext from "../../../lib/Contexts/LoadingContext";
+import ModalContext from "../../../Contexts/ModalContext";
+import LoadingContext from "../../../Contexts/LoadingContext";
 import SecondaryLoader from "../../Ui/SecondaryLoader/SecondaryLoader";
 import { Navigate } from "react-router-dom";
 
@@ -26,14 +26,14 @@ const SignUpForm = () => {
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
   const { setIsModalOpen } = useContext(ModalContext);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
-  const [apiApproval, setApiApproval] = useState(false);
 
   const { email, fullName, username, confirmPassword, password, phone } =
     formState as IStateSignUp;
 
+  let apiApproval: boolean = false;
   const handleChange = createHandleChange(dispatch, setErrors, password);
   const handleSubmit = handleSubmitSignUp(
-    setApiApproval,
+    apiApproval,
     setIsLoading,
     setIsModalOpen,
     formState,
