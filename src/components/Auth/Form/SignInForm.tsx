@@ -6,11 +6,10 @@ import {
   createHandleChange,
 } from "../../../lib/helpers/forms";
 import { IStateSignIn } from "../../../lib/interfaces";
-import ModalContext from "../../../contexts/ModalContext";
-import { useContext } from "react";
-import LoadingContext from "../../../contexts/LoadingContext";
 import SecondaryLoader from "../../Ui/SecondaryLoader/SecondaryLoader";
 import { Navigate } from "react-router-dom";
+import useLoad from "../../../hooks/useLoad";
+import useModal from "../../../hooks/useModal";
 
 const initialStates = {
   userIdentifier: "",
@@ -20,8 +19,8 @@ const initialStates = {
 const SignInForm = () => {
   const [formState, dispatch] = useReducer(signInReducer, initialStates);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const { setIsModalOpen } = useContext(ModalContext);
-  const { isLoading, setIsLoading } = useContext(LoadingContext);
+  const { setIsModalOpen } = useModal();
+  const { isLoading, setIsLoading } = useLoad();
   const [apiApproval, setApiApproval] = useState(false);
 
   const { userIdentifier, signInPassword } = formState as IStateSignIn;

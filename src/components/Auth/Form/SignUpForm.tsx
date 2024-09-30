@@ -1,4 +1,4 @@
-import { useContext, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import Input from "../../Ui/Input";
 import {
   createHandleChange,
@@ -6,10 +6,10 @@ import {
   signUpReducer,
 } from "../../../lib/helpers/forms";
 import { IStateSignUp } from "../../../lib/interfaces";
-import ModalContext from "../../../contexts/ModalContext";
-import LoadingContext from "../../../contexts/LoadingContext";
 import SecondaryLoader from "../../Ui/SecondaryLoader/SecondaryLoader";
 import { Navigate } from "react-router-dom";
+import useModal from "../../../hooks/useModal";
+import useLoad from "../../../hooks/useLoad";
 
 const initialStates = {
   email: "",
@@ -23,8 +23,8 @@ const initialStates = {
 const SignUpForm = () => {
   const [formState, dispatch] = useReducer(signUpReducer, initialStates);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const { setIsModalOpen } = useContext(ModalContext);
-  const { isLoading, setIsLoading } = useContext(LoadingContext);
+  const { setIsModalOpen } = useModal();
+  const { isLoading, setIsLoading } = useLoad();
   const [apiApproval, setApiApproval] = useState(false);
 
   const { email, fullName, username, confirmPassword, password, phone } =
