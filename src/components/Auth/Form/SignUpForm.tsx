@@ -23,7 +23,6 @@ const initialStates = {
 const SignUpForm = () => {
   const [formState, dispatch] = useReducer(signUpReducer, initialStates);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
   const { setIsModalOpen } = useContext(ModalContext);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const [apiApproval, setApiApproval] = useState(false);
@@ -38,8 +37,6 @@ const SignUpForm = () => {
     setIsModalOpen,
     formState,
     setErrors,
-    setIsFormValid,
-    isFormValid,
     password,
   );
 

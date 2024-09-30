@@ -1,4 +1,8 @@
+const delay = (delayInms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, delayInms));
+};
 const fetchWrapper = async (url: string, options: RequestInit = {}) => {
+  await delay(1500);
   const response = await fetch(url, {
     ...options,
     headers: {

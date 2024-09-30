@@ -107,8 +107,6 @@ export const handleSubmitSignUp = (
   setModalStatus: React.Dispatch<React.SetStateAction<boolean>>,
   formState: IStateSignUp,
   setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>,
-  setIsFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  isFormValid: boolean,
   password?: string,
 ) => {
   return async (e: ChangeEvent<HTMLFormElement>) => {
@@ -118,18 +116,15 @@ export const handleSubmitSignUp = (
       const error = checkField(key, value, password);
       if (error) {
         newErrors[key] = error;
-        setIsFormValid(false);
       }
     });
-    if (Object.keys(newErrors).length === 0) {
-      setIsFormValid(true);
-    }
     setErrors(newErrors);
-    if (isFormValid) {
+
+    if (Object.keys(newErrors).length === 0) {
       setIsLoading(true);
       const result = await signUp(formState);
-      setIsLoading(false);
       console.log(result);
+      setIsLoading(false);
       setErrors(await handleFieldError(result, setModalStatus));
       if (result.status === "success") setApiApproval(true);
     }
@@ -143,8 +138,6 @@ export const handleSubmitSignIn = (
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
   formState: IStateSignIn,
   setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>,
-  setIsFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  isFormValid: boolean,
   password?: string,
 ) => {
   return async (e: ChangeEvent<HTMLFormElement>) => {
@@ -154,14 +147,11 @@ export const handleSubmitSignIn = (
       const error = checkField(key, value, password);
       if (error) {
         newErrors[key] = error;
-        setIsFormValid(false);
       }
     });
-    if (Object.keys(newErrors).length === 0) {
-      setIsFormValid(true);
-    }
     setErrors(newErrors);
-    if (isFormValid) {
+
+    if (Object.keys(newErrors).length === 0) {
       setIsLoading(true);
       const result = await signIn(formState);
       setIsLoading(false);
