@@ -8,7 +8,7 @@ const AppLayout = () => {
   const { isInternalServerError, setIsInternalServerError } =
     useInternalServerError();
   return (
-    <div className=" bg-bg flex flex-row ">
+    <div className="transition-all duration-500 bg-bg flex flex-row ">
       <Sidebar />
 
       <Modal

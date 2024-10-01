@@ -21,7 +21,7 @@ const Sidebar = () => {
         onMouseLeave={() => setIsLogoVisible(false)}
       >
         <div
-          className={` top-6 left-0 flex items-center justify-center rounded-md bg-fifth p-4 transition-all duration-500 ${
+          className={`  top-6 left-0 flex items-center justify-center rounded-md bg-fifth p-4 transition-all duration-500 ${
             isLogoVisible
               ? "opacity-100 translate-x-0"
               : "opacity-0 -translate-x-full"
@@ -29,7 +29,7 @@ const Sidebar = () => {
         >
           <img src="./icon.png" alt="logo" className="mt-1 w-8 h-8" />
         </div>
-        <div className="space-y-16 rounded-md bg-fifth p-2">
+        <div className="transition-all duration-500 space-y-16 rounded-md bg-fifth p-2">
           <ul className="gap-3 flex flex-col items-center justify-center">
             <ListItem>
               <FaUserFriends size={SIDEBAR_ICON_SIZE} className="text-second" />
