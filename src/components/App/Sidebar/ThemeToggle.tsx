@@ -17,7 +17,7 @@ const ThemeToggle = () => {
   }, [isChecked]);
 
   return (
-    <div className=" shadow-lg w-10 h-10 flex justify-center items-center rounded-md cursor-pointer transition-all duration-200 active:scale-90">
+    <div className=" shadow-gray-600 shadow-lg w-10 h-10 flex justify-center items-center rounded-md cursor-pointer transition-all duration-200 active:scale-90 ">
       <label className="relative inline-block w-[30px] h-8 cursor-pointer ">
         <input
           type="checkbox"

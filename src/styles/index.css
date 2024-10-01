@@ -10,6 +10,7 @@
     --color-second: #532b88;
     --color-third: #9b72cf;
     --color-fourth: #c8b1e4;
+    --color-fifth: #778da9;
   }
   .dark {
     --color-bg: #03071e;
@@ -18,6 +19,7 @@
     --color-third: #532b88;
     --color-second: #9b72cf;
     --color-first: #c8b1e4;
+    --color-fifth: #1b263b;
   }
 }
 

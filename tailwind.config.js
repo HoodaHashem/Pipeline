@@ -15,6 +15,7 @@ export default {
         second: "var(--color-second)",
         third: "var(--color-third)",
         fourth: "var(--color-fourth)",
+        fifth: "var(--color-fifth)",
       },
     },
   },
