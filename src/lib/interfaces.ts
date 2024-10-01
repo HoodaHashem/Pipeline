@@ -30,3 +30,13 @@ export interface IApiErrorResponse {
   status: "fail" | "success" | "error";
   errors: IApiFeildError[];
 }
+
+export interface IAvatar {
+  src: string;
+  alt: string;
+  size: string;
+}
+
+export interface IAvatarSize {
+  [key: string]: string;
+}

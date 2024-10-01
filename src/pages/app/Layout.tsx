@@ -8,7 +8,7 @@ const AppLayout = () => {
   const { isInternalServerError, setIsInternalServerError } =
     useInternalServerError();
   return (
-    <div className="h-screen bg-bg">
+    <div className="bg-bg flex flex-row ">
       <Sidebar />
       <Modal
         open={isInternalServerError}
