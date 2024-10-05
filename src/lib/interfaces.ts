@@ -40,3 +40,9 @@ export interface IAvatar {
 export interface IAvatarSize {
   [key: string]: string;
 }
+
+export interface IContact {
+  src: string;
+  contactName: string;
+  lastMsg: string;
+}

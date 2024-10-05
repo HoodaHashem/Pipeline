@@ -17,7 +17,7 @@ const ThemeToggle = () => {
   }, [isChecked]);
 
   return (
-    <div className=" shadow-gray-600 shadow-lg w-10 h-10 flex justify-center items-center rounded-md cursor-pointer transition-all duration-200 active:scale-90 ">
+    <div className=" hover:bg-gray-400 dark:hover:bg-gray-100 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer transition-all duration-200 ">
       <label className="relative inline-block w-[30px] h-8 cursor-pointer ">
         <input
           type="checkbox"
@@ -29,7 +29,7 @@ const ThemeToggle = () => {
         />
         <svg
           className={`absolute inset-0 w-full h-full text-gray-400 transition-transform duration-300 ease-in-out ${
-            isChecked ? "rotate-90 text-first" : "rotate-45 text-second"
+            isChecked ? "rotate-90 text-second" : "rotate-45 text-second"
           }`}
           viewBox="0 0 20 20"
           fill="currentColor"

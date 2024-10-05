@@ -6,10 +6,10 @@ import {
   signUpReducer,
 } from "../../../lib/helpers/forms";
 import { IStateSignUp } from "../../../lib/interfaces";
-import SecondaryLoader from "../../Ui/SecondaryLoader/SecondaryLoader";
+import SecondaryLoader from "../../Ui/SecondaryLoader";
 import { Navigate } from "react-router-dom";
-import useModal from "../../../hooks/useModal";
 import useLoad from "../../../hooks/useLoad";
+import useInternalServerError from "../../../hooks/useInternalServerError";
 
 const initialStates = {
   email: "",
@@ -23,7 +23,7 @@ const initialStates = {
 const SignUpForm = () => {
   const [formState, dispatch] = useReducer(signUpReducer, initialStates);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const { setIsModalOpen } = useModal();
+  const { setIsInternalServerError } = useInternalServerError();
   const { isLoading, setIsLoading } = useLoad();
   const [apiApproval, setApiApproval] = useState(false);
 
@@ -34,7 +34,7 @@ const SignUpForm = () => {
   const handleSubmit = handleSubmitSignUp(
     setApiApproval,
     setIsLoading,
-    setIsModalOpen,
+    setIsInternalServerError,
     formState,
     setErrors,
     password,

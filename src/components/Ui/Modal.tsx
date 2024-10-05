@@ -9,7 +9,7 @@ interface IModal {
 const Modal = ({ open, onClose, children }: IModal) => {
   return (
     <div
-      className={`z-[100] fixed inset-0 justify-center items-center transition-colors flex ${open ? "visible bg-black/30" : "invisible"}`}
+      className={`z-[100] fixed inset-0 justify-center items-center transition-colors flex ${open ? "visible bg-black/50" : "invisible"}`}
     >
       <div
         className={` bg-bg rounded-xl shadow p-6 transition-all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}

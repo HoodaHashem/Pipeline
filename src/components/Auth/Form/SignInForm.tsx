@@ -6,10 +6,10 @@ import {
   createHandleChange,
 } from "../../../lib/helpers/forms";
 import { IStateSignIn } from "../../../lib/interfaces";
-import SecondaryLoader from "../../Ui/SecondaryLoader/SecondaryLoader";
+import SecondaryLoader from "../../Ui/SecondaryLoader";
 import { Navigate } from "react-router-dom";
 import useLoad from "../../../hooks/useLoad";
-import useModal from "../../../hooks/useModal";
+import useInternalServerError from "../../../hooks/useInternalServerError";
 
 const initialStates = {
   userIdentifier: "",
@@ -19,7 +19,7 @@ const initialStates = {
 const SignInForm = () => {
   const [formState, dispatch] = useReducer(signInReducer, initialStates);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const { setIsModalOpen } = useModal();
+  const { setIsInternalServerError } = useInternalServerError();
   const { isLoading, setIsLoading } = useLoad();
   const [apiApproval, setApiApproval] = useState(false);
 
@@ -29,7 +29,7 @@ const SignInForm = () => {
   const handleSubmit = handleSubmitSignIn(
     setApiApproval,
     setIsLoading,
-    setIsModalOpen,
+    setIsInternalServerError,
     formState,
     setErrors,
     signInPassword,

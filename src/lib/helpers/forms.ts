@@ -104,7 +104,7 @@ export const createHandleChange = (
 export const handleSubmitSignUp = (
   setApiApproval: React.Dispatch<React.SetStateAction<boolean>>,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setModalStatus: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsInternalServerError: React.Dispatch<React.SetStateAction<boolean>>,
   formState: IStateSignUp,
   setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>,
   password?: string,
@@ -125,7 +125,7 @@ export const handleSubmitSignUp = (
       const result = await signUp(formState);
       console.log(result);
       setIsLoading(false);
-      setErrors(await handleFieldError(result, setModalStatus));
+      setErrors(await handleFieldError(result, setIsInternalServerError));
       if (result.status === "success") setApiApproval(true);
     }
   };
@@ -135,7 +135,7 @@ export const handleSubmitSignIn = (
   setApiApproval: React.Dispatch<React.SetStateAction<boolean>>,
 
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsInternalServerError: React.Dispatch<React.SetStateAction<boolean>>,
   formState: IStateSignIn,
   setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>,
   password?: string,
@@ -155,7 +155,7 @@ export const handleSubmitSignIn = (
       setIsLoading(true);
       const result = await signIn(formState);
       setIsLoading(false);
-      setErrors(await handleFieldError(result, setIsModalOpen));
+      setErrors(await handleFieldError(result, setIsInternalServerError));
       if (result.status === "success") setApiApproval(true);
     }
   };
