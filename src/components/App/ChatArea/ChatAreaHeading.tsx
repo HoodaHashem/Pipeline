@@ -10,7 +10,7 @@ const ChatAreaHeading = () => {
   return (
     <header className="flex justify-between transition-colors duration-500 bg-bg p-4 mx-3 text-gray-700 items-center">
       <div className="flex items-center gap-3">
-        <Avatar src="./girl.jpeg" alt="girl" size="xsm" />
+        <Avatar src="./girl.jpeg" alt="girl" size="xs" />
         <h1 className=" transition-colors duration-500 text-2xl font-bold text-text">
           Alice <span className=" font-normal text-third italic">Pipeline</span>
         </h1>

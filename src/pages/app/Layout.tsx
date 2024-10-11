@@ -17,12 +17,10 @@ const AppLayout = () => {
         <UpcomingFeature close={() => setIsOpen(false)} />
       </Modal>
 
-      <Modal
+      <InternalServerError
         open={isInternalServerError}
         onClose={() => setIsInternalServerError(false)}
-      >
-        <InternalServerError close={() => setIsInternalServerError(false)} />
-      </Modal>
+      />
       <Outlet />
     </div>
   );

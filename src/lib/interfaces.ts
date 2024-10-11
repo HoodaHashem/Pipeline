@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface IStateSignUp {
   fullName: string;
   username: string;
@@ -35,6 +37,7 @@ export interface IAvatar {
   src: string;
   alt: string;
   size: string;
+  icon?: ReactNode;
 }
 
 export interface IAvatarSize {
@@ -45,4 +48,22 @@ export interface IContact {
   src: string;
   contactName: string;
   lastMsg: string;
+}
+
+export interface KeyValue {
+  [key: string]: string;
+}
+export interface IModalHeading {
+  headingList: string[];
+}
+
+export interface IModalType {
+  type: "userSettings" | "friends";
+  isOpen: boolean;
+  close: () => void;
+}
+export interface IFetchWrapper {
+  url: string;
+  options: RequestInit;
+  serverError: () => {};
 }

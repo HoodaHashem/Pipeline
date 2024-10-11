@@ -9,9 +9,12 @@ import { IoIosVideocam } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 import { MdSettingsPhone } from "react-icons/md";
 import { useEffect, useState } from "react";
+import ModalWindow from "../ModalWindows";
 
 const Sidebar = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -46,10 +49,20 @@ const Sidebar = () => {
         >
           <div className="space-y-16 rounded-md   p-2">
             <ul className="gap-3 flex flex-col items-center justify-center">
-              <ListItem>
+              <ListItem
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setModalType("friends");
+                }}
+              >
                 <FaUserFriends size={ICON_SIZE} className="text-second" />
               </ListItem>
-              <ListItem>
+              <ListItem
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setModalType("groups");
+                }}
+              >
                 <HiMiniUserGroup size={ICON_SIZE} className="text-second" />
               </ListItem>
               <ListItem>
@@ -78,6 +91,12 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
+
+      <ModalWindow
+        isOpen={isModalOpen}
+        close={() => setIsModalOpen(false)}
+        type={modalType}
+      />
     </>
   );
 };

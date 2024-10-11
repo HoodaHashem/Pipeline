@@ -3,11 +3,12 @@ import Avatar from "../Avatar";
 import { cutLongSentence } from "../../../lib/helpers/app";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 import { useState } from "react";
-import useUpcomingFeature from "../../../hooks/useUpcomingFeature";
+import ModalWindow from "../ModalWindows";
 
 const ChatsbarHeading = () => {
   const [isCopied, setIsCopied] = useState(false);
-  const { setIsOpen } = useUpcomingFeature();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   const username = "username";
 
@@ -53,7 +54,10 @@ const ChatsbarHeading = () => {
         <div className="relative inline-flex flex-shrink-0">
           <button className="transition-all duration-150 text-gray-400 hover:text-gray-500 rounded-full focus:ring-0 outline-none focus:outline-none">
             <IoSettingsSharp
-              onClick={() => setIsOpen(true)}
+              onClick={() => {
+                setIsModalOpen(true);
+                setModalType("userSettings");
+              }}
               className="text-second cursor-pointer transition-all duration-500 hover:text-third"
             />
           </button>
@@ -76,6 +80,11 @@ const ChatsbarHeading = () => {
           {cutLongSentence("01276556853", 11)}
         </div>
       </div>
+      <ModalWindow
+        isOpen={isModalOpen}
+        close={() => setIsModalOpen(false)}
+        type={modalType}
+      />
     </header>
   );
 };

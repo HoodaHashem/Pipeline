@@ -8,5 +8,6 @@ export const AVATAR_SIZES: IAvatarSize = {
   sm: "w-10 h-10",
   md: "w-12 h-12",
   lg: "w-14 h-14",
-  xsm: "w-8 h-8",
+  xs: "w-8 h-8",
+  xl: "w-20 h-20",
 };

@@ -4,4 +4,5 @@ export const END_POINTS = {
   SIGN_UP: `${API_BASE_URL}/auth/signup`,
   LOGOUT: `${API_BASE_URL}/auth/logout`,
   IS_LOGGED_IN: `${API_BASE_URL}/auth/`,
+  GET_USER_DATA: `${API_BASE_URL}/users/`,
 };
