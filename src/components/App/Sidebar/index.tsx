@@ -1,7 +1,6 @@
 import ListItem from "./ListItem";
 import { ICON_SIZE } from "../../../lib/constants";
 import ThemeToggle from "./ThemeToggle";
-import Avatar from "../Avatar";
 import { TbLogout2 } from "react-icons/tb";
 import { FaUserFriends } from "react-icons/fa";
 import { HiMiniUserGroup } from "react-icons/hi2";
@@ -10,11 +9,18 @@ import { IoSettings } from "react-icons/io5";
 import { MdSettingsPhone } from "react-icons/md";
 import { useEffect, useState } from "react";
 import ModalWindow from "../ModalWindows";
+import { logOut } from "../../../lib/apiCenter";
+import useInternalServerError from "../../../hooks/useInternalServerError";
+import { Navigate } from "react-router-dom";
+import SecondaryLoader from "../../Ui/SecondaryLoader";
 
 const Sidebar = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
+  const { setIsInternalServerError } = useInternalServerError();
+  const [loggedOut, setLoggedOut] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -29,6 +35,21 @@ const Sidebar = () => {
       document.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      setIsLoading(true);
+
+      const result = await logOut();
+      if (!result) setIsInternalServerError(true);
+      setLoggedOut(true);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  if (loggedOut) return <Navigate to="/auth" />;
 
   return (
     <>
@@ -71,7 +92,12 @@ const Sidebar = () => {
               <ListItem>
                 <IoIosVideocam size={ICON_SIZE} className="text-second" />
               </ListItem>
-              <ListItem>
+              <ListItem
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setModalType("userSettings");
+                }}
+              >
                 <IoSettings size={ICON_SIZE} className="text-second" />
               </ListItem>
               <li className="my-1">
@@ -80,12 +106,16 @@ const Sidebar = () => {
             </ul>
             <div>
               <ul className="flex flex-col items-center justify-center mb-5">
-                <li className="mb-3">
-                  <Avatar src="./girl.jpeg" alt="User avatar" size="sm" />
+                <li
+                  className="p-3 rounded-md hover:bg-gray-400 dark:hover:bg-third transition-colors duration-200 cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  {isLoading ? (
+                    <SecondaryLoader />
+                  ) : (
+                    <TbLogout2 size={ICON_SIZE} className="text-text" />
+                  )}
                 </li>
-                <ListItem>
-                  <TbLogout2 size={ICON_SIZE} className="text-second" />
-                </ListItem>
               </ul>
             </div>
           </div>

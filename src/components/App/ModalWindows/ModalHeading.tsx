@@ -12,6 +12,7 @@ const ModalHeading = ({ headingList }: IModalHeading) => {
               <li
                 className={`relative cursor-pointer  transition-all duration-300 ${activeItem === idx ? "border-b-2 border-third text-third pointer-events-none" : " group text-text hover:text-second border-b-2 border-transparent"}`}
                 onClick={() => setActiveItem(idx)}
+                key={idx}
               >
                 {item}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-third transition-all duration-300 group-hover:w-full"></span>

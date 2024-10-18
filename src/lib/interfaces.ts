@@ -37,7 +37,6 @@ export interface IAvatar {
   src: string;
   alt: string;
   size: string;
-  icon?: ReactNode;
 }
 
 export interface IAvatarSize {
@@ -58,12 +57,30 @@ export interface IModalHeading {
 }
 
 export interface IModalType {
-  type: "userSettings" | "friends";
+  type: "userSettings" | "friends" | string;
   isOpen: boolean;
   close: () => void;
 }
 export interface IFetchWrapper {
   url: string;
   options: RequestInit;
-  serverError: () => {};
+}
+export interface IUserData {
+  fullName: string;
+  username: string;
+  phone: string;
+  email: string;
+  photo: string;
+}
+
+export interface IUserSettingsInput {
+  defaultValue: string;
+  isLoading: boolean;
+  value: string;
+  name: "fullName" | "username" | "phone" | "email";
+}
+
+export interface ITextLoader {
+  w: string;
+  h: string;
 }

@@ -6,7 +6,6 @@ const FriendsModal = () => {
       <ModalHeading
         headingList={["Friends", "Friend requests", "Online Friends "]}
       />
-      <div></div>
     </div>
   );
 };
