@@ -1,12 +1,12 @@
 import ChatArea from "../../components/App/ChatArea";
 import Chatsbar from "../../components/App/Chatsbar";
 
-const app = () => {
+const App = () => {
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen flex-1 overflow-hidden">
       <Chatsbar />
       <ChatArea />
     </div>
   );
 };
-export default app;
+export default App;
