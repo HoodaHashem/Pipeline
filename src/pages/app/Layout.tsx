@@ -17,7 +17,6 @@ const AppLayout = () => {
 
   const authenticate = async () => {
     const result = await isLoggedIn();
-    console.log(result);
     if (result.status === "success") {
       setIsAuth(true);
     }

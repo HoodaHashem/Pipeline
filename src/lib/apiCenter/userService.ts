@@ -1,3 +1,4 @@
+import { IPatchUserData } from "../interfaces";
 import { END_POINTS } from "./apiConfig";
 import fetchWrapper from "./fetchWrapper";
 
@@ -22,5 +23,12 @@ export const updateProfilePicture = async (photo: File) => {
   return await fetchWrapper({
     url: END_POINTS.UPDATE_PROFILE_PICTURE,
     options: { method: "POST", body: formData },
+  });
+};
+
+export const patchUserData = async (data: IPatchUserData) => {
+  return await fetchWrapper({
+    url: END_POINTS.PATCH_USER_DATA,
+    options: { method: "PATCH", body: JSON.stringify(data) },
   });
 };

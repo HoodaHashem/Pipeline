@@ -7,4 +7,5 @@ export type endPointsType = {
   GET_USER_DATA: string;
   DELETE_PROFILE_PICTURE: string;
   UPDATE_PROFILE_PICTURE: string;
+  PATCH_USER_DATA: string;
 };

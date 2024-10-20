@@ -42,7 +42,7 @@ const ChatsbarHeading = () => {
   const handleCopy = () => {
     try {
       if (!isLoading && userData) {
-        navigator.clipboard.writeText(userData?.username);
+        navigator.clipboard.writeText(userData?.username ?? "");
         setIsCopied(true);
         setTimeout(() => setIsCopied(false), 2000);
       }

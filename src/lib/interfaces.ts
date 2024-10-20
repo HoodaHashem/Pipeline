@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from "react";
 
 export interface IStateSignUp {
   fullName: string;
@@ -66,21 +66,47 @@ export interface IFetchWrapper {
   options: RequestInit;
 }
 export interface IUserData {
-  fullName: string;
-  username: string;
-  phone: string;
-  email: string;
-  photo: string;
+  fullName?: string;
+  username?: string;
+  phone?: string;
+  email?: string;
+  photo?: string;
 }
 
-export interface IUserSettingsInput {
-  defaultValue: string;
+export interface IUserSettingsInput
+  extends InputHTMLAttributes<HTMLInputElement> {
   isLoading: boolean;
   value: string;
   name: "fullName" | "username" | "phone" | "email";
+  err: boolean;
+  errMsg?: string;
 }
 
 export interface ITextLoader {
   w: string;
   h: string;
+}
+
+export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  className?: string;
+}
+
+export interface IUserSettings {
+  onClose: () => void;
+}
+
+export interface IPatchUserData {
+  fullName?: string;
+  username?: string;
+  phone?: string;
+  email?: string;
+}
+
+export interface IErrorElement {
+  type: string;
+  value: string;
+  msg: string;
+  path: string;
+  location: string;
 }

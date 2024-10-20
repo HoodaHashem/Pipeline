@@ -11,4 +11,5 @@ export const END_POINTS: endPointsType = {
   GET_USER_DATA: `${API_BASE_URL}/users/`,
   DELETE_PROFILE_PICTURE: `${API_BASE_URL}/users/profile-photo`,
   UPDATE_PROFILE_PICTURE: `${API_BASE_URL}/users/upload`,
+  PATCH_USER_DATA: `${API_BASE_URL}/users/`,
 };

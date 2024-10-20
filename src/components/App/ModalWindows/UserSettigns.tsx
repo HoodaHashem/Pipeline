@@ -6,33 +6,40 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import {
   deleteProfilePicture,
   getUserData,
+  patchUserData,
   updateProfilePicture,
 } from "../../../lib/apiCenter/userService";
 import useInternalServerError from "../../../hooks/useInternalServerError";
-import { IUserData } from "../../../lib/interfaces";
+import {
+  IErrorElement,
+  IUserData,
+  IUserSettings,
+} from "../../../lib/interfaces";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { IoCloudUpload } from "react-icons/io5";
 import { API_PUBLIC_URL } from "../../../lib/apiCenter/apiConfig";
 import AvatarLoader from "../Loaders/avatarLoader";
+import SecondaryLoader from "../../Ui/SecondaryLoader";
 
-interface IUserSettings {
-  onClose: () => void;
-}
 const UserSettings = ({ onClose }: IUserSettings) => {
   const { setIsInternalServerError } = useInternalServerError();
-  const [userData, setUserData] = useState<IUserData | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [formData, setFormData] = useState({
+  const [userData, setUserData] = useState<IUserData | null>({
     fullName: "",
     username: "",
-    email: "",
     phone: "",
+    email: "",
+    photo: "",
   });
+  const [orgData, setOrgData] = useState<IUserData | null>();
+  const [isLoading, setIsLoading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isbtnLoading, setIsbtnLoading] = useState(false);
 
   const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setErrors({});
+    setUserData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -53,6 +60,7 @@ const UserSettings = ({ onClose }: IUserSettings) => {
       }
       if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
       setUserData(user.data);
+      setOrgData(user.data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -113,7 +121,48 @@ const UserSettings = ({ onClose }: IUserSettings) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleEdit = () => {};
+  const handleEdit = async (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const apiData: { [key: string]: string } = {};
+    if (
+      orgData?.fullName === userData?.fullName?.trim() &&
+      userData?.phone === orgData?.phone &&
+      userData?.username === orgData?.username &&
+      userData?.email === orgData?.email
+    ) {
+      setErrors({ fullName: "You must edit something" });
+      return;
+    }
+    if (orgData?.fullName !== userData?.fullName) {
+      apiData["fullName"] = userData?.fullName ?? "";
+    }
+    if (orgData?.username !== userData?.username) {
+      apiData["username"] = userData?.username ?? "";
+    }
+    if (orgData?.email !== userData?.email) {
+      apiData["email"] = userData?.email ?? "";
+    }
+    if (orgData?.phone !== userData?.phone) {
+      apiData["phone"] = userData?.phone ?? "";
+    }
+    setIsbtnLoading(true);
+    const result = await patchUserData(apiData);
+    setIsbtnLoading(false);
+
+    if (result.status === "fail") {
+      const errs: { [key: string]: string } = {};
+      result.errors.forEach((element: IErrorElement) => {
+        errs[element.path] = element.msg;
+      });
+      setErrors(errs);
+    }
+    if (result.status === "success") {
+      window.location.reload();
+    }
+    if (result.status === "error") {
+      setIsInternalServerError(true);
+    }
+  };
   return (
     <div className="p-5">
       <ModalHeading headingList={["User Information"]} />
@@ -157,31 +206,42 @@ const UserSettings = ({ onClose }: IUserSettings) => {
         />
         <form onSubmit={handleEdit}>
           <UserSettingsInput
-            defaultValue={isLoading ? "Loading..." : (userData?.fullName ?? "")}
             isLoading={isLoading}
             name="fullName"
-            value=""
+            value={isLoading ? "Loading..." : (userData?.fullName ?? "")}
+            onChange={handleFormChange}
+            err={!!errors.fullName}
+            errMsg={errors.fullName}
           />
           <UserSettingsInput
-            defaultValue={isLoading ? "Loading..." : (userData?.username ?? "")}
             isLoading={isLoading}
             name="username"
-            value=""
+            value={isLoading ? "Loading..." : (userData?.username ?? "")}
+            onChange={handleFormChange}
+            err={!!errors.username}
+            errMsg={errors.username}
           />
           <UserSettingsInput
-            defaultValue={isLoading ? "Loading..." : (userData?.phone ?? "")}
-            isLoading={isLoading}
-            name="phone"
-            value={formData.fullName}
-          />
-          <UserSettingsInput
-            defaultValue={isLoading ? "Loading..." : (userData?.email ?? "")}
             isLoading={isLoading}
             name="email"
-            value=""
+            value={isLoading ? "Loading..." : (userData?.email ?? "")}
+            onChange={handleFormChange}
+            err={!!errors.email}
+            errMsg={errors.email}
+          />
+
+          <UserSettingsInput
+            isLoading={isLoading}
+            name="phone"
+            value={isLoading ? "Loading..." : (userData?.phone ?? "")}
+            onChange={handleFormChange}
+            err={!!errors.phone}
+            errMsg={errors.phone}
           />
           <div className={`flex ${isLoading ? "animate-pulse " : ""}`}>
-            <Button disabled={isLoading}>Edit</Button>
+            <Button disabled={isLoading}>
+              {isbtnLoading ? <SecondaryLoader /> : "edit"}
+            </Button>
             <Button onClick={onClose} disabled={isLoading}>
               Close
             </Button>
