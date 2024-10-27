@@ -8,4 +8,7 @@ export type endPointsType = {
   DELETE_PROFILE_PICTURE: string;
   UPDATE_PROFILE_PICTURE: string;
   PATCH_USER_DATA: string;
+  GET_HEALTH: string;
+  SEARCH_FOR_FRIEND: string;
+  SEND_FRIEND_REQUEST: string;
 };

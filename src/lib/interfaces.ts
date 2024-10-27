@@ -1,4 +1,11 @@
-import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from "react";
+import {
+  ButtonHTMLAttributes,
+  ChangeEvent,
+  Dispatch,
+  InputHTMLAttributes,
+  ReactNode,
+  SetStateAction,
+} from "react";
 
 export interface IStateSignUp {
   fullName: string;
@@ -109,4 +116,23 @@ export interface IErrorElement {
   msg: string;
   path: string;
   location: string;
+}
+
+export interface ISearchbar {
+  input: string;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  loadingState: boolean;
+  users: KeyValue[];
+  debouncedSearch: string;
+}
+
+export interface IHighlightTextProps {
+  text: string | number;
+  highlight: string;
+  className?: string;
+}
+
+export interface IAddFriend {
+  userId: string;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }

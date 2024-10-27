@@ -32,3 +32,4 @@ export const patchUserData = async (data: IPatchUserData) => {
     options: { method: "PATCH", body: JSON.stringify(data) },
   });
 };
+

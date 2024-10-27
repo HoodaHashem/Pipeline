@@ -12,4 +12,7 @@ export const END_POINTS: endPointsType = {
   DELETE_PROFILE_PICTURE: `${API_BASE_URL}/users/profile-photo`,
   UPDATE_PROFILE_PICTURE: `${API_BASE_URL}/users/upload`,
   PATCH_USER_DATA: `${API_BASE_URL}/users/`,
+  SEARCH_FOR_FRIEND: `${API_BASE_URL}/friends/search`,
+  GET_HEALTH: `${API_BASE_URL}/health`,
+  SEND_FRIEND_REQUEST: `${API_BASE_URL}/friends/send`,
 };

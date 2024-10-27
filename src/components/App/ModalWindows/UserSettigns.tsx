@@ -1,5 +1,4 @@
 import Avatar from "../Avatar";
-import ModalHeading from "./ModalHeading";
 import UserSettingsInput from "../../Ui/UserSettingsInput";
 import Button from "../../Ui/Button";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
@@ -20,6 +19,7 @@ import { IoCloudUpload } from "react-icons/io5";
 import { API_PUBLIC_URL } from "../../../lib/apiCenter/apiConfig";
 import AvatarLoader from "../Loaders/avatarLoader";
 import SecondaryLoader from "../../Ui/SecondaryLoader";
+import { Navigate } from "react-router-dom";
 
 const UserSettings = ({ onClose }: IUserSettings) => {
   const { setIsInternalServerError } = useInternalServerError();
@@ -55,6 +55,8 @@ const UserSettings = ({ onClose }: IUserSettings) => {
     try {
       setIsLoading(true);
       const user = await getUserData();
+      if (user === "Unauthorized") return <Navigate to={"/auth"} replace />;
+
       if (user.status === "error") {
         setIsInternalServerError(true);
       }
@@ -72,6 +74,8 @@ const UserSettings = ({ onClose }: IUserSettings) => {
     try {
       setIsLoading(true);
       const result = await deleteProfilePicture();
+      if (result === "Unauthorized") return <Navigate to={"/auth"} replace />;
+
       if (result.status === "error") {
         setIsInternalServerError(true);
       }
@@ -101,6 +105,16 @@ const UserSettings = ({ onClose }: IUserSettings) => {
           setIsInternalServerError(true);
         }
         const user = await getUserData();
+        if (result === "Unauthorized") return <Navigate to={"/auth"} replace />;
+
+        if (user === "Unauthorized") return <Navigate to={"/auth"} replace />;
+
+        if (result === "serverDown")
+          return <Navigate to={"/server-down"} replace />;
+
+        if (user === "serverDown")
+          return <Navigate to={"/server-down"} replace />;
+
         if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
 
         if (user.status === "error") {
@@ -162,10 +176,16 @@ const UserSettings = ({ onClose }: IUserSettings) => {
     if (result.status === "error") {
       setIsInternalServerError(true);
     }
+    if (result === "Unauthorized") return <Navigate to={"/auth"} replace />;
   };
   return (
     <div className="p-5">
-      <ModalHeading headingList={["User Information"]} />
+      <ul className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-10 mt-4 lg:mt-0">
+        <li className="relative cursor-pointer  transition-all duration-300 border-b-2 border-third text-third pointer-events-none">
+          User Information
+        </li>
+      </ul>
+
       <div className="container flex flex-col justify-center items-center mt-3 w-96">
         <div
           className={`flex justify-center items-center gap-5 ${isLoading ? "animate-pulse" : ""}`}
@@ -239,7 +259,7 @@ const UserSettings = ({ onClose }: IUserSettings) => {
             errMsg={errors.phone}
           />
           <div className={`flex ${isLoading ? "animate-pulse " : ""}`}>
-            <Button disabled={isLoading}>
+            <Button disabled={isLoading} type="submit">
               {isbtnLoading ? <SecondaryLoader /> : "edit"}
             </Button>
             <Button onClick={onClose} disabled={isLoading}>

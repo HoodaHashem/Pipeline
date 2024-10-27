@@ -5,18 +5,20 @@ import useInternalServerError from "../../hooks/useInternalServerError";
 import { useEffect, useState } from "react";
 import { isLoggedIn } from "../../lib/apiCenter";
 import PrimaryLoader from "../../components/Ui/PrimaryLoader";
+
 const AuthLayout = () => {
   const { isInternalServerError, setIsInternalServerError } =
     useInternalServerError();
-  const [isAuth, setIsAuth] = useState<boolean | null>(null);
+  const [isAuth, setIsAuth] = useState<boolean | null | "serverDown">(null);
 
   const authenticate = async () => {
     const result = await isLoggedIn();
-    console.log(result);
+
+    if (result === "serverDown") setIsAuth("serverDown");
     if (result.status === "success") {
       setIsAuth(true);
     }
-    if (result.status === "fail") {
+    if (result === "Unauthorized") {
       setIsAuth(false);
     }
     if (result.status === "error") {
@@ -31,6 +33,8 @@ const AuthLayout = () => {
   if (isAuth === null) return <PrimaryLoader />;
 
   if (isAuth === true) return <Navigate to={"/app"} replace />;
+
+  if (isAuth === "serverDown") return <Navigate to={"/server-down"} />;
 
   return (
     <div className="h-screen bg-bg ">

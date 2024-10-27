@@ -13,16 +13,22 @@ const AppLayout = () => {
   const { isInternalServerError, setIsInternalServerError } =
     useInternalServerError();
   const { isOpen, setIsOpen } = useUpcomingFeature();
-  const [isAuth, setIsAuth] = useState<boolean | null>(null);
+  const [isAuth, setIsAuth] = useState<boolean | null | "serverDown">(null);
 
   const authenticate = async () => {
     const result = await isLoggedIn();
+
+    if (result === "Unauthorized") {
+      setIsAuth(false);
+    }
+
+    if (result === "serverDown") {
+      setIsAuth("serverDown");
+    }
     if (result.status === "success") {
       setIsAuth(true);
     }
-    if (result.status === "fail") {
-      setIsAuth(false);
-    }
+
     if (result.status === "error") {
       setIsAuth(false);
     }
@@ -34,7 +40,9 @@ const AppLayout = () => {
 
   if (isAuth === null) return <PrimaryLoader />;
 
-  if (isAuth === false) return <Navigate to={"/auth"} replace />;
+  if (isAuth === "serverDown") return <Navigate to={"/server-down"} />;
+
+  if (isAuth === false) return <Navigate to={"/auth"} />;
 
   return (
     <div className="transition-all duration-500 bg-bg flex flex-row h-screen overflow-hidden">

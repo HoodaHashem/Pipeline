@@ -8,6 +8,7 @@ import AuthPage from "../pages/auth";
 import AuthLayout from "../pages/auth/Layout";
 import App from "../pages/app";
 import AppLayout from "../pages/app/Layout";
+import ServerDown from "../pages/serverDown";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,9 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/app" element={<AppLayout />}>
         <Route index element={<App />} />
+      </Route>
+      <Route path="/server-down">
+        <Route index element={<ServerDown />} />
       </Route>
     </>,
   ),
