@@ -15,4 +15,5 @@ export const END_POINTS: endPointsType = {
   SEARCH_FOR_FRIEND: `${API_BASE_URL}/friends/search`,
   GET_HEALTH: `${API_BASE_URL}/health`,
   SEND_FRIEND_REQUEST: `${API_BASE_URL}/friends/send`,
+  GET_FRIEND_REQUESTS: `${API_BASE_URL}/friends/`,
 };

@@ -26,7 +26,7 @@ const ServerDown = () => {
   });
   if (isLoading) return <PrimaryLoader />;
   if (isHealthy) return <Navigate to={"/app"} />;
-  if (isHealthy)
+  if (!isHealthy)
     return (
       <div className="bg-bg min-h-screen overflow-auto flex flex-col lg:flex-row justify-center items-center p-10 lg:p-20">
         <div className="flex flex-col justify-center items-center text-center space-y-5 lg:w-1/2">

@@ -8,7 +8,6 @@ import {
   patchUserData,
   updateProfilePicture,
 } from "../../../lib/apiCenter/userService";
-import useInternalServerError from "../../../hooks/useInternalServerError";
 import {
   IErrorElement,
   IUserData,
@@ -19,10 +18,8 @@ import { IoCloudUpload } from "react-icons/io5";
 import { API_PUBLIC_URL } from "../../../lib/apiCenter/apiConfig";
 import AvatarLoader from "../Loaders/avatarLoader";
 import SecondaryLoader from "../../Ui/SecondaryLoader";
-import { Navigate } from "react-router-dom";
 
 const UserSettings = ({ onClose }: IUserSettings) => {
-  const { setIsInternalServerError } = useInternalServerError();
   const [userData, setUserData] = useState<IUserData | null>({
     fullName: "",
     username: "",
@@ -55,11 +52,7 @@ const UserSettings = ({ onClose }: IUserSettings) => {
     try {
       setIsLoading(true);
       const user = await getUserData();
-      if (user === "Unauthorized") return <Navigate to={"/auth"} replace />;
 
-      if (user.status === "error") {
-        setIsInternalServerError(true);
-      }
       if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
       setUserData(user.data);
       setOrgData(user.data);
@@ -73,18 +66,12 @@ const UserSettings = ({ onClose }: IUserSettings) => {
   const deleteProfilePic = async () => {
     try {
       setIsLoading(true);
-      const result = await deleteProfilePicture();
-      if (result === "Unauthorized") return <Navigate to={"/auth"} replace />;
+      await deleteProfilePicture();
 
-      if (result.status === "error") {
-        setIsInternalServerError(true);
-      }
       const user = await getUserData();
+
       if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
 
-      if (user.status === "error") {
-        setIsInternalServerError(true);
-      }
       setUserData(user.data);
     } catch (err) {
       console.error(err);
@@ -100,26 +87,11 @@ const UserSettings = ({ onClose }: IUserSettings) => {
 
       try {
         setIsLoading(true);
-        const result = await updateProfilePicture(file);
-        if (result.status === "error") {
-          setIsInternalServerError(true);
-        }
+        await updateProfilePicture(file);
         const user = await getUserData();
-        if (result === "Unauthorized") return <Navigate to={"/auth"} replace />;
-
-        if (user === "Unauthorized") return <Navigate to={"/auth"} replace />;
-
-        if (result === "serverDown")
-          return <Navigate to={"/server-down"} replace />;
-
-        if (user === "serverDown")
-          return <Navigate to={"/server-down"} replace />;
 
         if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
 
-        if (user.status === "error") {
-          setIsInternalServerError(true);
-        }
         setUserData(user.data);
       } catch (err) {
         console.error(err);
@@ -173,10 +145,6 @@ const UserSettings = ({ onClose }: IUserSettings) => {
     if (result.status === "success") {
       window.location.reload();
     }
-    if (result.status === "error") {
-      setIsInternalServerError(true);
-    }
-    if (result === "Unauthorized") return <Navigate to={"/auth"} replace />;
   };
   return (
     <div className="p-5">

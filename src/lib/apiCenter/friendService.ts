@@ -14,3 +14,10 @@ export const sendFrindRequest = async (data: string) => {
     options: { method: "POST" },
   });
 };
+
+export const getFriendRequests = async () => {
+  return await fetchWrapper({
+    url: END_POINTS.GET_FRIEND_REQUESTS,
+    options: { method: "GET" },
+  });
+};

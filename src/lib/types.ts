@@ -11,4 +11,5 @@ export type endPointsType = {
   GET_HEALTH: string;
   SEARCH_FOR_FRIEND: string;
   SEND_FRIEND_REQUEST: string;
+  GET_FRIEND_REQUESTS: string;
 };

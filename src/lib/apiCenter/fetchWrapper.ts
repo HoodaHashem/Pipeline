@@ -23,6 +23,9 @@ const fetchWrapper = async ({ url, options = {} }: IFetchWrapper) => {
       if (response.status === 401) {
         return "Unauthorized";
       }
+      if (response.status === 500) {
+        return "serverError";
+      }
 
       return await response.json();
     } else {
