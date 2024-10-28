@@ -52,7 +52,6 @@ const UserSettings = ({ onClose }: IUserSettings) => {
     try {
       setIsLoading(true);
       const user = await getUserData();
-
       if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
       setUserData(user.data);
       setOrgData(user.data);

@@ -1,32 +1,44 @@
 import { useEffect, useState } from "react";
-import fetchWrapper from "../../lib/apiCenter/fetchWrapper";
 import { END_POINTS } from "../../lib/apiCenter/apiConfig";
 import { Navigate } from "react-router-dom";
 import PrimaryLoader from "../../components/Ui/PrimaryLoader";
 
 const ServerDown = () => {
   const [isHealthy, setIsHealthy] = useState(false);
-  const [isLoading, setIsLoading] = useState<boolean>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const checkHealth = async () => {
-      return await fetchWrapper({
-        url: END_POINTS.GET_HEALTH,
-        options: { method: "GET" },
-      });
-    };
-    const getHealth = async () => {
-      setIsLoading(true);
-      const result = await checkHealth();
-      setIsLoading(false);
+      try {
+        const response = await fetch(END_POINTS.GET_HEALTH, {
+          method: "GET",
+          credentials: "include",
+        });
 
-      if (result.status === "success") setIsHealthy(true);
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === "success") {
+            setIsHealthy(true);
+          } else {
+            setHasError(true);
+          }
+        } else {
+          setHasError(true);
+        }
+      } catch {
+        setHasError(true);
+      } finally {
+        setIsLoading(false);
+      }
     };
-    getHealth();
-  });
+
+    checkHealth();
+  }, []);
+
   if (isLoading) return <PrimaryLoader />;
-  if (isHealthy) return <Navigate to={"/app"} />;
-  if (!isHealthy)
+  if (isHealthy) return <Navigate to="/app" />;
+  if (hasError)
     return (
       <div className="bg-bg min-h-screen overflow-auto flex flex-col lg:flex-row justify-center items-center p-10 lg:p-20">
         <div className="flex flex-col justify-center items-center text-center space-y-5 lg:w-1/2">
@@ -50,4 +62,5 @@ const ServerDown = () => {
       </div>
     );
 };
+
 export default ServerDown;

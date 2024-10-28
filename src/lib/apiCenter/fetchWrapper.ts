@@ -21,10 +21,10 @@ const fetchWrapper = async ({ url, options = {} }: IFetchWrapper) => {
     const contentType = response.headers.get("content-type");
     if (contentType && contentType.includes("application/json")) {
       if (response.status === 401) {
-        return "Unauthorized";
+        window.location.href = "/auth";
       }
       if (response.status === 500) {
-        return "serverError";
+        window.location.href = "/server-down";
       }
 
       return await response.json();
@@ -37,7 +37,8 @@ const fetchWrapper = async ({ url, options = {} }: IFetchWrapper) => {
         error.message.includes("Failed to fetch") ||
         error.message.includes("NetworkError")
       ) {
-        return "serverDown";
+        window.location.href = "/server-down";
+        return;
       }
     }
     throw error;
