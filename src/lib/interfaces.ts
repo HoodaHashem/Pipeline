@@ -73,11 +73,13 @@ export interface IFetchWrapper {
   options: RequestInit;
 }
 export interface IUserData {
-  fullName?: string;
+  _id?: string;
+  email?: string;
   username?: string;
   phone?: string;
-  email?: string;
-  photo?: string;
+  fullName?: string;
+  isValid?: boolean;
+  createdAt?: string;
 }
 
 export interface IUserSettingsInput
@@ -135,4 +137,10 @@ export interface IHighlightTextProps {
 export interface IAddFriend {
   userId: string;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface IUserContextType {
+  userData: IUserData | null;
+  setUserData: React.Dispatch<React.SetStateAction<IUserData | null>>;
+  refetchUserData: () => Promise<void>;
 }

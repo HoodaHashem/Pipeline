@@ -11,3 +11,4 @@ export const AVATAR_SIZES: IAvatarSize = {
   xs: "w-8 h-8",
   xl: "w-20 h-20",
 };
+export const SOCKET_URL: string = "http://localhost:3000";

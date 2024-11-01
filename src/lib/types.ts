@@ -1,4 +1,5 @@
 export type inputType = "number" | "email" | "password" | "text";
+
 export type endPointsType = {
   SIGN_IN: string;
   SIGN_UP: string;

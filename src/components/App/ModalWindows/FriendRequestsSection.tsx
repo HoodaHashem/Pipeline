@@ -1,19 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AvatarLoader from "../Loaders/avatarLoader";
 import TextLoader from "../Loaders/TextLoader";
 import { getFriendRequests } from "../../../lib/apiCenter";
-import { Navigate } from "react-router-dom";
 
 const FriendRequestsSection = () => {
-  const [loadingState, setLoadingState] = useState(true);
-  const [requests, setRequests] = useState();
+  const [loadingState, setLoadingState] = useState(false);
+  const [incomingRequests, setIcomingRequests] = useState<[]>();
+  const [outgoingRequests, setOutgoingRequests] = useState<[]>();
 
   const getRequests = async () => {
+    setLoadingState(true);
     const result = await getFriendRequests();
-    if (result === "Unauthorized") return <Navigate to={"/auth"} replace />;
+    setIcomingRequests(result.incomingRequests);
+    setOutgoingRequests(result.outgoingRequests);
+    setLoadingState(false);
   };
+
+  useEffect(() => {
+    getRequests();
+  }, []);
+
   return (
-    <div className="flex justify-center items-center mt-3 text-text font-medium text-lg">
+    <div className="flex flex-col justify-center items-center mt-3 text-text font-medium text-lg">
+      {incomingRequests && incomingRequests.length > 0 && (
+        <h1 className="text-text text-md ">
+          You have{" "}
+          <span className="text-second font-mono font-semibold">{`${incomingRequests.length}`}</span>{" "}
+          new requests
+        </h1>
+      )}
       <ul
         className="transition-all duration-300
         overflow-y-auto
