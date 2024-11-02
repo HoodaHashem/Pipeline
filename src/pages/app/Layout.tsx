@@ -21,6 +21,7 @@ const AppLayout = () => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
     });
 
     if (response.status === 200) {

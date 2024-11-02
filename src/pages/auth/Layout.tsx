@@ -17,15 +17,18 @@ const AuthLayout = () => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
     });
 
-    const result = await response.json();
-
-    if (result.status === "success") {
+    if (response.status === 200) {
       setIsAuth(true);
-    } else if (result.status === "fail") {
+    }
+
+    if (response.status === 401) {
       setIsAuth(false);
-    } else if (response.status === 500) {
+    }
+
+    if (response.status === 500) {
       setIsAuth("serverDown");
     }
   };
