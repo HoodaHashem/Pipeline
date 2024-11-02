@@ -8,13 +8,6 @@ export const searchForFriend = async (data: { search: string }) => {
   });
 };
 
-export const sendFrindRequest = async (data: string) => {
-  return await fetchWrapper({
-    url: `${END_POINTS.SEND_FRIEND_REQUEST}/${data}`,
-    options: { method: "POST" },
-  });
-};
-
 export const getFriendRequests = async () => {
   return await fetchWrapper({
     url: END_POINTS.GET_FRIEND_REQUESTS,

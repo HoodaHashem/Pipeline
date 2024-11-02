@@ -1,14 +1,21 @@
 import { IoMdPersonAdd } from "react-icons/io";
-import { sendFrindRequest } from "../../lib/apiCenter";
 import { IAddFriend } from "../../lib/interfaces";
+import { useSocket } from "../../hooks/useSocket";
 
 const AddFriend = ({ userId, setIsLoading }: IAddFriend) => {
+  const socket = useSocket();
+
+  const sendFrindRequest = (userId: string) => {
+    if (socket) {
+      socket.emit("sendFriendRequest", userId);
+    }
+  };
   return (
     <button
       className="bg-third p-3 rounded-lg text-text border-none outline-none"
       onClick={async () => {
         setIsLoading(true);
-        await sendFrindRequest(userId);
+        sendFrindRequest(userId);
         setIsLoading(false);
       }}
     >

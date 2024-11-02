@@ -1,14 +1,19 @@
 import { ReactNode, useEffect, useState } from "react";
 import { IUserData } from "../lib/interfaces";
-import { getUserData } from "../lib/apiCenter";
 import UserContext from "../contexts/UserContext";
+import { END_POINTS } from "../lib/apiCenter/apiConfig";
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<IUserData | null>(null);
 
   const filterUserData = async () => {
     try {
-      const user = await getUserData();
+      const response = await fetch(END_POINTS.GET_USER_DATA, {
+        method: "GET",
+        credentials: "include",
+      });
+      const user = await response.json();
+
       if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
       if (user.status === "success") {
         setUserData(user.data);

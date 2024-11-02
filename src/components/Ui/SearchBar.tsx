@@ -14,7 +14,7 @@ const SearchBar = ({
   input,
   handleChange,
   loadingState,
-  users,
+  users = [],
   debouncedSearch,
 }: ISearchbar) => {
   const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
@@ -151,7 +151,7 @@ const SearchBar = ({
                   </div>
                 ) : !ele.isFrind ? (
                   <AddFriend
-                    userId={ele.username}
+                    userId={ele._id}
                     setIsLoading={(loading) => {
                       if (loading) {
                         setLoadingUserId(ele.username);

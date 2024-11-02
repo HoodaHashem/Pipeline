@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import AvatarLoader from "../Loaders/avatarLoader";
 import TextLoader from "../Loaders/TextLoader";
-import useSocket from "../../../hooks/useSocket";
+import { useSocket } from "../../../hooks/useSocket";
 
 const FriendRequestsSection = () => {
   const [loadingState, setLoadingState] = useState(false);
-  const [incomingRequests, setIcomingRequests] = useState<[]>();
+  const [incomingRequests, setIncomingRequests] = useState<[]>();
   const [outgoingRequests, setOutgoingRequests] = useState<[]>();
   const socket = useSocket();
 
@@ -13,11 +13,12 @@ const FriendRequestsSection = () => {
     if (!socket) return;
 
     const handleFriendRequests = (data) => {
-      setLoadingState(true);
-      setIcomingRequests(data.incomingRequests);
+      setIncomingRequests(data.incomingRequests);
       setOutgoingRequests(data.outgoingRequests);
-      setLoadingState(false);
+      console.log(data);
     };
+
+    socket.emit("requestFriendRequests");
 
     socket.on("getFriendRequests", handleFriendRequests);
 
