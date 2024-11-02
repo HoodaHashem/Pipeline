@@ -19,16 +19,14 @@ const AuthLayout = () => {
       },
     });
 
-    if (response.status === 200) {
+    const result = await response.json();
+
+    if (result.status === "success") {
       setIsAuth(true);
-    }
-
-    if (response.status === 401) {
+    } else if (result.status === "fail") {
       setIsAuth(false);
-    }
-
-    if (response.status === 500) {
-      setIsAuth(false);
+    } else if (response.status === 500) {
+      setIsAuth("serverDown");
     }
   };
 

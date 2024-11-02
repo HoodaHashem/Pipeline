@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
 import AvatarLoader from "../Loaders/avatarLoader";
 import TextLoader from "../Loaders/TextLoader";
-import { getFriendRequests } from "../../../lib/apiCenter";
+import useSocket from "../../../hooks/useSocket";
 
 const FriendRequestsSection = () => {
   const [loadingState, setLoadingState] = useState(false);
   const [incomingRequests, setIcomingRequests] = useState<[]>();
   const [outgoingRequests, setOutgoingRequests] = useState<[]>();
-
-  const getRequests = async () => {
-    setLoadingState(true);
-    const result = await getFriendRequests();
-    setIcomingRequests(result.incomingRequests);
-    setOutgoingRequests(result.outgoingRequests);
-    setLoadingState(false);
-  };
+  const socket = useSocket();
 
   useEffect(() => {
-    getRequests();
-  }, []);
+    if (!socket) return;
+
+    const handleFriendRequests = (data) => {
+      setLoadingState(true);
+      setIcomingRequests(data.incomingRequests);
+      setOutgoingRequests(data.outgoingRequests);
+      setLoadingState(false);
+    };
+
+    socket.on("getFriendRequests", handleFriendRequests);
+
+    return () => {
+      socket.off("getFriendRequests", handleFriendRequests);
+    };
+  }, [socket]);
 
   return (
     <div className="flex flex-col justify-center items-center mt-3 text-text font-medium text-lg">
