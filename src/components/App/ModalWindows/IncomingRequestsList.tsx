@@ -47,12 +47,15 @@ const IncomingRequestsList = (value: IIncomingRequests) => {
           </div>
 
           <div className="flex justify-between items-center  text-sm font-medium text-second transition-colors duration-500 mt-1">
-            {value.acceptance}
+            <h3 className="transition-colors duration-500 text-xs font-semibold uppercase text-gray-400 dark:text-gray-600 mb-1">
+              {value.acceptance}
+            </h3>
+
             <div className="flex justify-center items-center gap-1 ">
-              <button className="p-2 dark:bg-slate-700 rounded-lg dark:hover:bg-slate-200 transition-colors duration-300 hover:text-green-500">
+              <button className="p-2 dark:bg-slate-700 rounded-lg dark:hover:bg-slate-200 transition-colors duration-300 hover:text-green-500 bg-slate-300 hover:bg-slate-700">
                 <FaUserCheck />
               </button>
-              <button className="p-2 dark:bg-slate-700 rounded-lg dark:hover:bg-slate-200 transition-colors duration-300 hover:text-red-500">
+              <button className="p-2 dark:bg-slate-700 rounded-lg dark:hover:bg-slate-200 transition-colors duration-300 hover:text-red-500 bg-slate-300 hover:bg-slate-700">
                 <FaUserXmark />
               </button>
             </div>
