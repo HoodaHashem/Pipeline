@@ -6,17 +6,19 @@ const AddFriend = ({ userId, setIsLoading }: IAddFriend) => {
   const socket = useSocket();
 
   const sendFrindRequest = (userId: string) => {
-    if (socket) {
-      socket.emit("sendFriendRequest", userId);
-    }
+    setTimeout(() => {
+      if (socket) {
+        socket.emit("sendFriendRequest", userId);
+      }
+      setIsLoading(false);
+    }, 3000);
   };
   return (
     <button
       className="bg-third p-3 rounded-lg text-text border-none outline-none"
-      onClick={async () => {
+      onClick={() => {
         setIsLoading(true);
         sendFrindRequest(userId);
-        setIsLoading(false);
       }}
     >
       <IoMdPersonAdd />

@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-import AvatarLoader from "../Loaders/avatarLoader";
-import TextLoader from "../Loaders/TextLoader";
 import { useSocket } from "../../../hooks/useSocket";
+import ContactLoader from "./ContactLoader";
+import {
+  IFriendRequests,
+  IIncomingRequests,
+  IOutgoingRequests,
+} from "../../../lib/interfaces";
+import OutgoingRequestsList from "./OutgoingRequestsList";
+import IncomingRequestsList from "./IncomingRequestsList";
 
 const FriendRequestsSection = () => {
   const [loadingState, setLoadingState] = useState(false);
@@ -12,12 +18,15 @@ const FriendRequestsSection = () => {
   useEffect(() => {
     if (!socket) return;
 
-    const handleFriendRequests = (data) => {
-      setIncomingRequests(data.incomingRequests);
-      setOutgoingRequests(data.outgoingRequests);
-      console.log(data);
+    const handleFriendRequests = (data: IFriendRequests) => {
+      setTimeout(() => {
+        setIncomingRequests(data.incomingRequests);
+        setOutgoingRequests(data.outgoingRequests);
+        setLoadingState(false);
+      }, 3000);
     };
 
+    setLoadingState(true);
     socket.emit("requestFriendRequests");
 
     socket.on("getFriendRequests", handleFriendRequests);
@@ -30,75 +39,40 @@ const FriendRequestsSection = () => {
   return (
     <div className="flex flex-col justify-center items-center mt-3 text-text font-medium text-lg">
       {incomingRequests && incomingRequests.length > 0 && (
-        <h1 className="text-text text-md ">
+        <h1 className="text-text text-md">
           You have{" "}
-          <span className="text-second font-mono font-semibold">{`${incomingRequests.length}`}</span>{" "}
+          <span className="text-second font-mono font-semibold ">{`${incomingRequests.length}`}</span>{" "}
           new requests
         </h1>
       )}
       <ul
         className="transition-all duration-300
         overflow-y-auto
-        rounded-xl shadow-lg
-        mt-2
+                mt-2
         no-scrollbar
         h-60 "
       >
         {loadingState && (
           <>
-            <li>
-              <div className="flex items-center space-x-4 p-3">
-                <div className="inline-flex items-start mr-3">
-                  <AvatarLoader size="md" />
-                </div>
-                <div className="pr-1">
-                  <h2 className="text-xl leading-snug font-bold text-text transition-colors duration-500">
-                    <TextLoader w="w-48" h="h-4" />
-                  </h2>
-
-                  <div className="flex items-center  text-sm font-medium text-second transition-colors duration-500">
-                    <TextLoader w="w-20" h="h-3" />
-                    <TextLoader w="w-3" h="h-3" />
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="flex items-center space-x-4 p-3">
-                <div className="inline-flex items-start mr-3">
-                  <AvatarLoader size="md" />
-                </div>
-                <div className="pr-1">
-                  <h2 className="text-xl leading-snug font-bold text-text transition-colors duration-500">
-                    <TextLoader w="w-48" h="h-4" />
-                  </h2>
-
-                  <div className="flex items-center  text-sm font-medium text-second transition-colors duration-500">
-                    <TextLoader w="w-20" h="h-3" />
-                    <TextLoader w="w-3" h="h-3" />
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="flex items-center space-x-4 p-3">
-                <div className="inline-flex items-start mr-3">
-                  <AvatarLoader size="md" />
-                </div>
-                <div className="pr-1">
-                  <h2 className="text-xl leading-snug font-bold text-text transition-colors duration-500">
-                    <TextLoader w="w-48" h="h-4" />
-                  </h2>
-
-                  <div className="flex items-center  text-sm font-medium text-second transition-colors duration-500">
-                    <TextLoader w="w-20" h="h-3" />
-                    <TextLoader w="w-3" h="h-3" />
-                  </div>
-                </div>
-              </div>
-            </li>
+            <ContactLoader />
+            <ContactLoader />
+            <ContactLoader />
           </>
         )}
+
+        <h3 className="transition-colors duration-500 text-xs font-semibold uppercase text-gray-400 dark:text-gray-600 mb-1">
+          Incoming Requests
+        </h3>
+        {incomingRequests?.map((value: IIncomingRequests) => {
+          return <IncomingRequestsList {...value} />;
+        })}
+        <h3 className="transition-colors duration-500 text-xs font-semibold uppercase text-gray-400 dark:text-gray-600 mb-1">
+          Outgoing Requests
+        </h3>
+
+        {outgoingRequests?.map((value: IOutgoingRequests) => {
+          return <OutgoingRequestsList {...value} />;
+        })}
       </ul>
     </div>
   );

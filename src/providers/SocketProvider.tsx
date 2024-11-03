@@ -23,7 +23,6 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
     });
 
     newSocket.on("connect", () => {
-      console.log("Socket connected successfully");
       newSocket.emit("requestFriendRequests");
     });
 

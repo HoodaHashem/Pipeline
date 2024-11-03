@@ -144,3 +144,36 @@ export interface IUserContextType {
   setUserData: React.Dispatch<React.SetStateAction<IUserData | null>>;
   refetchUserData: () => Promise<void>;
 }
+
+export interface IFriendRequests {
+  incomingRequests: SetStateAction<[] | undefined>;
+  outgoingRequests: SetStateAction<[] | undefined>;
+}
+
+export interface IOutgoingRequests {
+  _id: string;
+  from: {
+    username: string;
+    photo: string;
+  };
+  to: {
+    username: string;
+    photo: string;
+  };
+  acceptance: string;
+  date: string;
+}
+
+export interface IIncomingRequests {
+  _id: string;
+  from: {
+    username: string;
+    photo: string;
+  };
+  to: {
+    username: string;
+    photo: string;
+  };
+  acceptance: string;
+  date: string;
+}

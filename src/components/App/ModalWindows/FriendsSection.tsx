@@ -38,16 +38,37 @@ const FriendsSection = () => {
       </div>
       <ul className="pt-20">
         <li>
-          <Avatar src="./girl.jpeg" alt="girl" size="md" />
+          <div className="flex items-center gap-4">
+            <Avatar src="./girl.jpeg" alt="girl" size="sm" />
+            <div className="font-medium dark:text-white">
+              <div>Jese Leos</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                Joined in August 2014
+              </div>
+            </div>
+          </div>
         </li>
         <li>
-          <Avatar src="./girl.jpeg" alt="girl" size="md" />
+          <div className="flex items-center gap-4">
+            <Avatar src="./girl.jpeg" alt="girl" size="sm" />
+            <div className="font-medium dark:text-white">
+              <div>Jese Leos</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                Joined in August 2014
+              </div>
+            </div>
+          </div>
         </li>
         <li>
-          <Avatar src="./girl.jpeg" alt="girl" size="md" />
-        </li>
-        <li>
-          <Avatar src="./girl.jpeg" alt="girl" size="md" />
+          <div className="flex items-center gap-4">
+            <Avatar src="./girl.jpeg" alt="girl" size="sm" />
+            <div className="font-medium dark:text-white">
+              <div>Jese Leos</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                Joined in August 2014
+              </div>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
