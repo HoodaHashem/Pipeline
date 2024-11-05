@@ -1,11 +1,9 @@
 import { IoMdSearch } from "react-icons/io";
 import { ISearchbar } from "../../lib/interfaces";
-import AvatarLoader from "../App/Loaders/avatarLoader";
 import Avatar from "../App/Avatar";
 import { API_PUBLIC_URL } from "../../lib/apiCenter/apiConfig";
 import HighlightText from "./HighlightText";
-import TextLoader from "../App/Loaders/TextLoader";
-import { FaPhoneAlt } from "react-icons/fa";
+import { FaPhoneAlt, FaUserFriends } from "react-icons/fa";
 import AddFriend from "./AddFriend";
 import { useState } from "react";
 import SecondaryLoader from "./SecondaryLoader";
@@ -102,7 +100,7 @@ const SearchBar = ({
                   <div className="bg-third p-3 rounded-lg text-text border-none outline-none">
                     <SecondaryLoader />
                   </div>
-                ) : !ele.isFrind ? (
+                ) : !ele.isFriend ? (
                   <AddFriend
                     userId={ele._id}
                     setIsLoading={(loading) => {
@@ -114,7 +112,9 @@ const SearchBar = ({
                     }}
                   />
                 ) : (
-                  ""
+                  <div className="bg-green-500/70 p-3 rounded-lg text-text border-none outline-none">
+                    <FaUserFriends />
+                  </div>
                 )}
               </div>
             </li>
