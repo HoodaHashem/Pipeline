@@ -112,7 +112,7 @@ const SearchBar = ({
                     }}
                   />
                 ) : (
-                  <div className="bg-green-500/70 p-3 rounded-lg text-text border-none outline-none">
+                  <div className="bg-green-500/50 p-3 rounded-lg text-text border-none outline-none">
                     <FaUserFriends />
                   </div>
                 )}
