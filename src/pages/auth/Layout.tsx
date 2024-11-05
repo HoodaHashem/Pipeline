@@ -4,7 +4,6 @@ import InternalServerError from "../../components/Ui/InternalServerError";
 import useInternalServerError from "../../hooks/useInternalServerError";
 import { useEffect, useState } from "react";
 import PrimaryLoader from "../../components/Ui/PrimaryLoader";
-import { isLoggedIn } from "../../lib/apiCenter";
 import { END_POINTS } from "../../lib/apiCenter/apiConfig";
 
 const AuthLayout = () => {

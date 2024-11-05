@@ -6,8 +6,8 @@ import Sidebar from "../../components/App/Sidebar";
 import useUpcomingFeature from "../../hooks/useUpcomingFeature";
 import UpcomingFeature from "../../components/Ui/UpcomingFeature";
 import { useEffect, useState } from "react";
-import { isLoggedIn } from "../../lib/apiCenter";
 import PrimaryLoader from "../../components/Ui/PrimaryLoader";
+import { END_POINTS } from "../../lib/apiCenter/apiConfig";
 
 const AppLayout = () => {
   const { isInternalServerError, setIsInternalServerError } =
@@ -16,21 +16,32 @@ const AppLayout = () => {
   const [isAuth, setIsAuth] = useState<boolean | null | "serverDown">(null);
 
   const authenticate = async () => {
-    const result = await isLoggedIn();
+    try {
+      const response = await fetch(END_POINTS.IS_LOGGED_IN, {
+        method: "GET",
+        credentials: "include",
+      });
 
-    if (result === "Unauthorized") {
-      setIsAuth(false);
-    }
+      if (response.status === 401) {
+        setIsAuth(false);
+      }
 
-    if (result === "serverDown") {
-      setIsAuth("serverDown");
-    }
-    if (result.status === "success") {
-      setIsAuth(true);
-    }
-
-    if (result.status === "error") {
-      setIsAuth("serverDown");
+      if (response.status === 500) {
+        setIsAuth("serverDown");
+      }
+      if (response.status === 200) {
+        setIsAuth(true);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if (
+          error.message.includes("Failed to fetch") ||
+          error.message.includes("NetworkError")
+        ) {
+          window.location.href = "/server-down";
+          return;
+        }
+      }
     }
   };
 
