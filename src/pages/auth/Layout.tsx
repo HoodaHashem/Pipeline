@@ -5,6 +5,7 @@ import useInternalServerError from "../../hooks/useInternalServerError";
 import { useEffect, useState } from "react";
 import PrimaryLoader from "../../components/Ui/PrimaryLoader";
 import { isLoggedIn } from "../../lib/apiCenter";
+import { END_POINTS } from "../../lib/apiCenter/apiConfig";
 
 const AuthLayout = () => {
   const { isInternalServerError, setIsInternalServerError } =
@@ -12,21 +13,32 @@ const AuthLayout = () => {
   const [isAuth, setIsAuth] = useState<boolean | null | "serverDown">(null);
 
   const authenticate = async () => {
-    const result = await isLoggedIn();
+    try {
+      const response = await fetch(END_POINTS.IS_LOGGED_IN, {
+        method: "GET",
+        credentials: "include",
+      });
 
-    if (result === "Unauthorized") {
-      setIsAuth(false);
-    }
+      if (response.status === 401) {
+        setIsAuth(false);
+      }
 
-    if (result === "serverDown") {
-      setIsAuth("serverDown");
-    }
-    if (result.status === "success") {
-      setIsAuth(true);
-    }
-
-    if (result.status === "error") {
-      setIsAuth("serverDown");
+      if (response.status === 500) {
+        setIsAuth("serverDown");
+      }
+      if (response.status === 200) {
+        setIsAuth(true);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if (
+          error.message.includes("Failed to fetch") ||
+          error.message.includes("NetworkError")
+        ) {
+          window.location.href = "/server-down";
+          return;
+        }
+      }
     }
   };
 
@@ -36,20 +48,21 @@ const AuthLayout = () => {
 
   if (isAuth === null) return <PrimaryLoader />;
 
-  if (isAuth === true) return <Navigate to={"/app"} replace />;
+  if (isAuth === true) return <Navigate to={"/app"} />;
 
   if (isAuth === "serverDown") return <Navigate to={"/server-down"} />;
-
-  return (
-    <div className="h-screen bg-bg ">
-      <Navbar />
-      <InternalServerError
-        open={isInternalServerError}
-        onClose={() => setIsInternalServerError(false)}
-      />
-      <Outlet />
-    </div>
-  );
+  if (isAuth === false) {
+    return (
+      <div className="h-screen bg-bg ">
+        <Navbar />
+        <InternalServerError
+          open={isInternalServerError}
+          onClose={() => setIsInternalServerError(false)}
+        />
+        <Outlet />
+      </div>
+    );
+  }
 };
 
 export default AuthLayout;

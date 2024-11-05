@@ -1,15 +1,15 @@
 import { useReducer, useState } from "react";
-import Input from "../../Ui/Input";
+import Input from "../Ui/Input";
 import {
   signInReducer,
   handleSubmitSignIn,
   createHandleChange,
-} from "../../../lib/helpers/forms";
-import { IStateSignIn } from "../../../lib/interfaces";
-import SecondaryLoader from "../../Ui/SecondaryLoader";
+} from "../../lib/helpers/forms";
+import { IStateSignIn } from "../../lib/interfaces";
+import SecondaryLoader from "../Ui/SecondaryLoader";
 import { Navigate } from "react-router-dom";
-import useLoad from "../../../hooks/useLoad";
-import useInternalServerError from "../../../hooks/useInternalServerError";
+import useLoad from "../../hooks/useLoad";
+import useInternalServerError from "../../hooks/useInternalServerError";
 
 const initialStates = {
   userIdentifier: "",
@@ -36,8 +36,10 @@ const SignInForm = () => {
   );
 
   if (apiApproval) {
-    return <Navigate to="/app" replace />;
+    location.reload();
+    return <Navigate to="/app" />;
   }
+
   return (
     <form
       className="bg-third dark:bg-first flex items-center justify-center flex-col p-0 px-[50px] h-full text-center transition-all duration-500 ease-in-out transform"

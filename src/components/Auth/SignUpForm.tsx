@@ -1,15 +1,15 @@
 import { useReducer, useState } from "react";
-import Input from "../../Ui/Input";
+import Input from "../Ui/Input";
 import {
   createHandleChange,
   handleSubmitSignUp,
   signUpReducer,
-} from "../../../lib/helpers/forms";
-import { IStateSignUp } from "../../../lib/interfaces";
-import SecondaryLoader from "../../Ui/SecondaryLoader";
+} from "../../lib/helpers/forms";
+import { IStateSignUp } from "../../lib/interfaces";
+import SecondaryLoader from "../Ui/SecondaryLoader";
 import { Navigate } from "react-router-dom";
-import useLoad from "../../../hooks/useLoad";
-import useInternalServerError from "../../../hooks/useInternalServerError";
+import useLoad from "../../hooks/useLoad";
+import useInternalServerError from "../../hooks/useInternalServerError";
 
 const initialStates = {
   email: "",
@@ -41,7 +41,8 @@ const SignUpForm = () => {
   );
 
   if (apiApproval) {
-    return <Navigate to="/app" replace />;
+    location.reload();
+    return <Navigate to="/app" />;
   }
 
   return (

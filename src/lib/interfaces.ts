@@ -153,10 +153,13 @@ export interface IFriendRequests {
 export interface IOutgoingRequests {
   _id: string;
   from: {
+    _id: string;
     username: string;
     photo: string;
   };
   to: {
+    _id: string;
+
     username: string;
     photo: string;
   };
@@ -167,13 +170,21 @@ export interface IOutgoingRequests {
 export interface IIncomingRequests {
   _id: string;
   from: {
+    _id: string;
     username: string;
     photo: string;
   };
   to: {
+    _id: string;
     username: string;
     photo: string;
   };
   acceptance: string;
   date: string;
+}
+
+export interface IOverlayProps {
+  signin: boolean;
+  toggle: (value: boolean) => void;
+  isSmallScreen: boolean;
 }

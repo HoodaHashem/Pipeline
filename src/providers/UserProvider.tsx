@@ -12,6 +12,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         method: "GET",
         credentials: "include",
       });
+
       const user = await response.json();
 
       if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
@@ -20,7 +21,6 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       }
     } catch (err) {
       console.error(err);
-      setUserData(null);
     }
   };
 
