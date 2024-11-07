@@ -50,7 +50,7 @@ export interface IAvatarSize {
   [key: string]: string;
 }
 
-export interface IContact {
+export interface IContactProps {
   src: string;
   contactName: string;
   lastMsg: string;
@@ -187,4 +187,11 @@ export interface IOverlayProps {
   signin: boolean;
   toggle: (value: boolean) => void;
   isSmallScreen: boolean;
+}
+
+export interface IContact {
+  fullName: string;
+  username: string;
+  phone: string;
+  photo: string;
 }

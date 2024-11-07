@@ -1,23 +1,27 @@
-import { IContact } from "../../../lib/interfaces";
+import React from "react";
 
-const Contact = ({ src, contactName, lastMsg }: IContact) => {
+const Contact = ({
+  src = "/api/placeholder/32/32",
+  contactName = "John Doe",
+  lastMsg = "Hello there!",
+}) => {
   return (
-    <button className="transition-colors duration-500 w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
-      <div className="flex items-center">
-        <img
-          className="rounded-full items-start flex-shrink-0 mr-3"
-          width="32"
-          height="32"
-          src={src}
-          alt={contactName}
-        />
-        <div>
-          <h4 className="text-sm font-semibold text-text transition-colors duration-500">
+    <button className="w-full text-left p-3 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:bg-gray-50 rounded-lg transition-all duration-200 group">
+      <div className="flex items-center space-x-3">
+        <div className="relative">
+          <img
+            className="rounded-full object-cover w-12 h-12 border-2 border-transparent group-hover:border-indigo-200 transition-all duration-200"
+            src={src}
+            alt={contactName}
+          />
+          <div className="absolute bottom-0 right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white"></div>
+        </div>
+
+        <div className="flex-1 min-w-0">
+          <h4 className="font-semibold text-gray-900 dark:text-gray-100 truncate">
             {contactName}
           </h4>
-          <div className="text-[13px] text-text transition-colors duration-500">
-            {lastMsg}
-          </div>
+          <p className="text-sm text-gray-500 truncate">{lastMsg}</p>
         </div>
       </div>
     </button>

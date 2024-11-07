@@ -1,3 +1,5 @@
+import { IContact } from "./interfaces";
+
 export type inputType = "number" | "email" | "password" | "text";
 
 export type endPointsType = {
@@ -14,3 +16,5 @@ export type endPointsType = {
   SEND_FRIEND_REQUEST: string;
   GET_FRIEND_REQUESTS: string;
 };
+
+export type IContacts = IContact[];
