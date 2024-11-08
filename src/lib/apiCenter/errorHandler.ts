@@ -1,9 +1,6 @@
 import { IApiErrorResponse, IApiFeildError } from "../interfaces";
 
-export const handleFieldError = async (
-  res: IApiErrorResponse,
-  setIsInternalServerError: React.Dispatch<React.SetStateAction<boolean>>,
-) => {
+export const handleFieldError = async (res: IApiErrorResponse) => {
   const newErrors: { [key: string]: string } = {};
   if (res.status === "fail") {
     const errs = res.errors;
@@ -11,9 +8,6 @@ export const handleFieldError = async (
       newErrors[err.path] = err.msg;
     });
     return newErrors;
-  }
-  if (res.status === "error") {
-    setIsInternalServerError(true);
   }
   return newErrors;
 };

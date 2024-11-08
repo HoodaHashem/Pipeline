@@ -13,7 +13,6 @@ const ContactList = () => {
     if (!socket) return;
 
     const handleContacts = (data: IContacts) => {
-      console.log(data);
       setContacts(data);
     };
 
@@ -31,17 +30,23 @@ const ContactList = () => {
       <h3 className="transition-colors duration-500 text-xs font-semibold uppercase text-gray-400 dark:text-gray-600 mb-1">
         Pipelines
       </h3>
-      <div className="divide-y divide-gray-300 dark:divide-gray-800 ">
-        {contacts?.map((ele: IContact) => {
-          return (
-            <Contact
-              src={ele.photo}
-              contactName={ele.fullName}
-              lastMsg="fuck this shit is good"
-            />
-          );
-        })}
-      </div>
+      {contacts && contacts.length > 0 ? (
+        <div className="divide-y divide-gray-300 dark:divide-gray-800 ">
+          {contacts?.map((ele: IContact) => {
+            return (
+              <Contact
+                src={ele.photo}
+                contactName={ele.fullName}
+                lastMsg="fuck this shit is good"
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <h3 className="uppercase text-center transition-colors duration-500 text-sm font-semibold  text-gray-400 dark:text-gray-600 mb-1">
+          There Is No Friends
+        </h3>
+      )}
     </div>
   );
 };

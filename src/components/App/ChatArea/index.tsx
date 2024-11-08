@@ -1,6 +1,7 @@
 import ChatAreaHeading from "./ChatAreaHeading";
 import ChatMsgs from "./ChatMsgs";
 import ChatFooter from "./footer";
+import PipelineArea from "./PipelineArea";
 
 const ChatArea = () => {
   return (
@@ -8,6 +9,7 @@ const ChatArea = () => {
       <ChatAreaHeading />
       <ChatMsgs />
       <ChatFooter />
+      {/* <PipelineArea /> */}
     </div>
   );
 };

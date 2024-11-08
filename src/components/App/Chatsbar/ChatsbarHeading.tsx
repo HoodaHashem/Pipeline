@@ -4,7 +4,6 @@ import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import ModalWindow from "../ModalWindows";
 import { IUserData } from "../../../lib/interfaces";
-import useInternalServerError from "../../../hooks/useInternalServerError";
 import { getUserData } from "../../../lib/apiCenter/userService";
 import { API_PUBLIC_URL } from "../../../lib/apiCenter/apiConfig";
 import AvatarLoader from "../Loaders/avatarLoader";
@@ -16,16 +15,12 @@ const ChatsbarHeading = () => {
   const [modalType, setModalType] = useState("");
   const [userData, setUserData] = useState<IUserData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { setIsInternalServerError } = useInternalServerError();
 
   const filterUserData = async () => {
     try {
       setIsLoading(true);
       const user = await getUserData();
       if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
-      if (user.status === "error") {
-        setIsInternalServerError(true);
-      }
       setUserData(user.data);
     } catch (err) {
       console.error(err);
@@ -36,7 +31,6 @@ const ChatsbarHeading = () => {
 
   useEffect(() => {
     filterUserData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCopy = () => {

@@ -79,6 +79,7 @@ export interface IUserData {
   phone?: string;
   fullName?: string;
   isValid?: boolean;
+  photo?: string;
   createdAt?: string;
 }
 
@@ -194,4 +195,14 @@ export interface IContact {
   username: string;
   phone: string;
   photo: string;
+}
+
+
+export interface IChatsContext {
+  selectedChat: string;
+  name: string;
+  status: string;
+  // setSelectedChat: Dispatch<SetStateAction<string>>;
+  // setName: Dispatch<SetStateAction<string>>;
+  // setStatus: Dispatch<SetStateAction<string>>;
 }

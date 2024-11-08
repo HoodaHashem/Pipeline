@@ -1,7 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Modal from "../../components/Ui/Modal";
 import InternalServerError from "../../components/Ui/InternalServerError";
-import useInternalServerError from "../../hooks/useInternalServerError";
 import Sidebar from "../../components/App/Sidebar";
 import useUpcomingFeature from "../../hooks/useUpcomingFeature";
 import UpcomingFeature from "../../components/Ui/UpcomingFeature";
@@ -10,8 +9,6 @@ import PrimaryLoader from "../../components/Ui/PrimaryLoader";
 import { END_POINTS } from "../../lib/apiCenter/apiConfig";
 
 const AppLayout = () => {
-  const { isInternalServerError, setIsInternalServerError } =
-    useInternalServerError();
   const { isOpen, setIsOpen } = useUpcomingFeature();
   const [isAuth, setIsAuth] = useState<boolean | null | "serverDown">(null);
 
@@ -62,10 +59,6 @@ const AppLayout = () => {
         <UpcomingFeature close={() => setIsOpen(false)} />
       </Modal>
 
-      <InternalServerError
-        open={isInternalServerError}
-        onClose={() => setIsInternalServerError(false)}
-      />
       <Outlet />
     </div>
   );

@@ -10,7 +10,6 @@ import { MdSettingsPhone } from "react-icons/md";
 import { useEffect, useState } from "react";
 import ModalWindow from "../ModalWindows";
 import { logOut } from "../../../lib/apiCenter";
-import useInternalServerError from "../../../hooks/useInternalServerError";
 import { Navigate } from "react-router-dom";
 import SecondaryLoader from "../../Ui/SecondaryLoader";
 
@@ -18,7 +17,6 @@ const Sidebar = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
-  const { setIsInternalServerError } = useInternalServerError();
   const [loggedOut, setLoggedOut] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,8 +38,7 @@ const Sidebar = () => {
     try {
       setIsLoading(true);
 
-      const result = await logOut();
-      if (!result) setIsInternalServerError(true);
+      await logOut();
       setLoggedOut(true);
     } catch (err) {
       console.error(err);

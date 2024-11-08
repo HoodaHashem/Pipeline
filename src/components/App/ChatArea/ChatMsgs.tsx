@@ -1,5 +1,5 @@
-import IncomingMsgs from "./ChatMsgs/IncomingMsgs";
-import OutgoingMsgs from "./ChatMsgs/OutgoingMsgs";
+import IncomingMsgs from "./IncomingMsgs";
+import OutgoingMsgs from "./OutgoingMsgs";
 
 const ChatMsgs = () => {
   return (

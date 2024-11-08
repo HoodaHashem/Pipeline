@@ -1,5 +1,5 @@
-import { cutLongSentence } from "../../../../lib/helpers/app";
-import Avatar from "../../Avatar";
+import { cutLongSentence } from "../../../lib/helpers/app";
+import Avatar from "../Avatar";
 
 const IncomingMsgs = () => {
   const date = new Date();
