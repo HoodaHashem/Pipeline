@@ -107,7 +107,7 @@ const ChatsbarHeading = () => {
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <div className="flex  items-center text-sm font-medium whitespace-nowrap text-gray-500 dark:text-gray-400 ml-2">
+        <div className="flex truncate items-center text-sm font-medium whitespace-nowrap text-gray-500 dark:text-gray-400 ml-2">
           {isLoading ? (
             ""
           ) : (
@@ -119,7 +119,7 @@ const ChatsbarHeading = () => {
           {isLoading ? "" : userData?.email}
         </div>
 
-        <div className="flex  items-center text-sm font-medium whitespace-nowrap text-gray-500 dark:text-gray-400 ml-2">
+        <div className="flex truncate items-center text-sm font-medium whitespace-nowrap text-gray-500 dark:text-gray-400 ml-2">
           {isLoading ? (
             ""
           ) : (

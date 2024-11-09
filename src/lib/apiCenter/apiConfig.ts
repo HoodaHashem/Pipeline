@@ -16,4 +16,7 @@ export const END_POINTS: endPointsType = {
   GET_HEALTH: `${API_BASE_URL}/health`,
   SEND_FRIEND_REQUEST: `${API_BASE_URL}/friends/send`,
   GET_FRIEND_REQUESTS: `${API_BASE_URL}/friends/`,
+  CREATE_NEW_CHAT: `${API_BASE_URL}/chats/createNewChat`,
+  GET_FRIEND_DATA: `${API_BASE_URL}/users/`,
+  GET_OLD_CHAT: `${API_BASE_URL}/chats/getExistingChat`,
 };

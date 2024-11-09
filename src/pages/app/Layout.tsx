@@ -1,6 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Modal from "../../components/Ui/Modal";
-import InternalServerError from "../../components/Ui/InternalServerError";
 import Sidebar from "../../components/App/Sidebar";
 import useUpcomingFeature from "../../hooks/useUpcomingFeature";
 import UpcomingFeature from "../../components/Ui/UpcomingFeature";

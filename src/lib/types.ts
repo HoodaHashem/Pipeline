@@ -15,6 +15,16 @@ export type endPointsType = {
   SEARCH_FOR_FRIEND: string;
   SEND_FRIEND_REQUEST: string;
   GET_FRIEND_REQUESTS: string;
+  CREATE_NEW_CHAT: string;
+  GET_FRIEND_DATA: string;
+  GET_OLD_CHAT: string;
 };
 
-export type IContacts = IContact[];
+export type TContacts = IContact[];
+
+export type TChatsState = {
+  status: string | null;
+  name: string | null;
+  selectedChat: string | null;
+  photo: string | null;
+};

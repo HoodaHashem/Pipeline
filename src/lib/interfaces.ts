@@ -6,6 +6,7 @@ import {
   ReactNode,
   SetStateAction,
 } from "react";
+import { TChatsState } from "./types";
 
 export interface IStateSignUp {
   fullName: string;
@@ -191,18 +192,17 @@ export interface IOverlayProps {
 }
 
 export interface IContact {
+  _id: string;
   fullName: string;
   username: string;
   phone: string;
   photo: string;
 }
 
-
 export interface IChatsContext {
-  selectedChat: string;
-  name: string;
-  status: string;
-  // setSelectedChat: Dispatch<SetStateAction<string>>;
-  // setName: Dispatch<SetStateAction<string>>;
-  // setStatus: Dispatch<SetStateAction<string>>;
+  selectedChat: string | null;
+  name: string | null;
+  status: string | null;
+  photo: string | null;
+  dataSetter: Dispatch<SetStateAction<TChatsState>>;
 }

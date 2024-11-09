@@ -3,11 +3,19 @@ import { ISearchbar } from "../../lib/interfaces";
 import Avatar from "../App/Avatar";
 import { API_PUBLIC_URL } from "../../lib/apiCenter/apiConfig";
 import HighlightText from "./HighlightText";
-import { FaPhoneAlt, FaUserFriends } from "react-icons/fa";
+import { FaPhoneAlt } from "react-icons/fa";
 import AddFriend from "./AddFriend";
 import { useState } from "react";
 import SecondaryLoader from "./SecondaryLoader";
 import ContactLoader from "../App/ModalWindows/ContactLoader";
+import { HiChatAlt2 } from "react-icons/hi";
+import useChats from "../../hooks/useChats";
+import useModal from "../../hooks/useModal";
+import { getFriendData } from "../../lib/apiCenter";
+import {
+  createNewChat,
+  getExistingChat,
+} from "../../lib/apiCenter/chatService";
 
 const SearchBar = ({
   input,
@@ -17,7 +25,40 @@ const SearchBar = ({
   debouncedSearch,
 }: ISearchbar) => {
   const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
+  const { dataSetter } = useChats();
+  const { setIsModalOpen } = useModal();
 
+  const handleChats = async (toUserId: string) => {
+    setLoadingUserId(toUserId);
+    const checkBeforeCreating = await getExistingChat({ id: toUserId });
+    if (checkBeforeCreating.data !== null) {
+      const user = await getFriendData({ id: toUserId });
+      if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
+
+      dataSetter({
+        name: user.data.fullName,
+        status: user.data.status,
+        photo: user.data.photo,
+        selectedChat: checkBeforeCreating.data._id,
+      });
+
+      setLoadingUserId(null);
+      setIsModalOpen(false);
+    } else {
+      const response = await createNewChat({ receiverId: toUserId });
+      const user = await getFriendData({ id: toUserId });
+      if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
+      dataSetter({
+        name: user.data.fullName,
+        status: user.data.status,
+        photo: user.data.photo,
+        selectedChat: response.data._id,
+      });
+
+      setLoadingUserId(null);
+      setIsModalOpen(false);
+    }
+  };
   return (
     <div>
       <div className="relative w-[400px] bg-transparent rounded-2xl shadow-md p-1.5 mt-2  border-gray-300 dark:border-gray-800 border">
@@ -41,7 +82,7 @@ const SearchBar = ({
 
       <ul
         className={`
-        ${debouncedSearch ? "opacity-100" : "opacity-0"}
+        ${debouncedSearch ? "opacity-100" : "opacity-0 hidden"}
         transition-all duration-300
         max-h-72 overflow-y-auto
         backdrop-blur-xl
@@ -111,10 +152,17 @@ const SearchBar = ({
                       }
                     }}
                   />
-                ) : (
-                  <div className="bg-green-500/50 p-3 rounded-lg text-text border-none outline-none">
-                    <FaUserFriends />
+                ) : loadingUserId === ele._id ? (
+                  <div className="p-2 bg-fifth rounded-lg cursor-pointer ">
+                    <SecondaryLoader />
                   </div>
+                ) : (
+                  <button
+                    className="p-2 bg-fifth rounded-lg cursor-pointer "
+                    onClick={() => handleChats(ele._id)}
+                  >
+                    <HiChatAlt2 size={"23"} className="text-second" />
+                  </button>
                 )}
               </div>
             </li>

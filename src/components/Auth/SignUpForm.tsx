@@ -38,7 +38,6 @@ const SignUpForm = () => {
   );
 
   if (apiApproval) {
-    location.reload();
     return <Navigate to="/app" />;
   }
 

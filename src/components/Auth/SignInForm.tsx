@@ -33,7 +33,6 @@ const SignInForm = () => {
   );
 
   if (apiApproval) {
-    location.reload();
     return <Navigate to="/app" />;
   }
 

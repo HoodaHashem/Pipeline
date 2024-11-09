@@ -2,17 +2,16 @@ import { useEffect, useState } from "react";
 import Contact from "./Contact";
 import { useSocket } from "../../../hooks/useSocket";
 import { IContact } from "../../../lib/interfaces";
-import { IContacts } from "../../../lib/types";
+import { TContacts } from "../../../lib/types";
 
 const ContactList = () => {
   const socket = useSocket();
-  const [loadingState, setLoadingState] = useState();
-  const [contacts, setContacts] = useState<IContacts | null>(null);
+  const [contacts, setContacts] = useState<TContacts | null>(null);
 
   useEffect(() => {
     if (!socket) return;
 
-    const handleContacts = (data: IContacts) => {
+    const handleContacts = (data: TContacts) => {
       setContacts(data);
     };
 
@@ -32,12 +31,14 @@ const ContactList = () => {
       </h3>
       {contacts && contacts.length > 0 ? (
         <div className="divide-y divide-gray-300 dark:divide-gray-800 ">
-          {contacts?.map((ele: IContact) => {
+          {contacts?.map((ele: IContact, idx) => {
             return (
               <Contact
+                key={idx}
                 src={ele.photo}
                 contactName={ele.fullName}
                 lastMsg="fuck this shit is good"
+                id={ele._id}
               />
             );
           })}

@@ -7,6 +7,7 @@ import UpcomingFeatureProvider from "./providers/UpcomingFeatureProvider.tsx";
 import SocketProvider from "./providers/SocketProvider.tsx";
 import UserProvider from "./providers/UserProvider.tsx";
 import ChatsProvider from "./providers/ChatsProvider.tsx";
+import ModalProvider from "./providers/ModalProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -14,9 +15,11 @@ createRoot(document.getElementById("root")!).render(
       <SocketProvider>
         <ChatsProvider>
           <LoadingProvider>
-            <UpcomingFeatureProvider>
-              <App />
-            </UpcomingFeatureProvider>
+            <ModalProvider>
+              <UpcomingFeatureProvider>
+                <App />
+              </UpcomingFeatureProvider>
+            </ModalProvider>
           </LoadingProvider>
         </ChatsProvider>
       </SocketProvider>

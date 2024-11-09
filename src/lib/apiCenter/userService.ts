@@ -33,3 +33,9 @@ export const patchUserData = async (data: IPatchUserData) => {
   });
 };
 
+export const getFriendData = async (data: { id: string }) => {
+  return await fetchWrapper({
+    url: END_POINTS.GET_FRIEND_DATA,
+    options: { method: "POST", body: JSON.stringify(data) },
+  });
+};

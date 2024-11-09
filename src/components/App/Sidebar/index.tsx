@@ -12,13 +12,14 @@ import ModalWindow from "../ModalWindows";
 import { logOut } from "../../../lib/apiCenter";
 import { Navigate } from "react-router-dom";
 import SecondaryLoader from "../../Ui/SecondaryLoader";
+import useModal from "../../../hooks/useModal";
 
 const Sidebar = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
   const [loggedOut, setLoggedOut] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { isModalOpen, setIsModalOpen } = useModal();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
