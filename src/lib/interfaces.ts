@@ -165,7 +165,7 @@ export interface IOutgoingRequests {
     username: string;
     photo: string;
   };
-  acceptance: string;
+  status: string;
   date: string;
 }
 
@@ -181,7 +181,7 @@ export interface IIncomingRequests {
     username: string;
     photo: string;
   };
-  acceptance: string;
+  status: string;
   date: string;
 }
 
@@ -191,18 +191,30 @@ export interface IOverlayProps {
   isSmallScreen: boolean;
 }
 
-export interface IContact {
-  _id: string;
-  fullName: string;
-  username: string;
-  phone: string;
-  photo: string;
-}
-
 export interface IChatsContext {
   selectedChat: string | null;
   name: string | null;
   status: string | null;
   photo: string | null;
   dataSetter: Dispatch<SetStateAction<TChatsState>>;
+}
+
+export interface IContact {
+  src: string;
+  contactName: string;
+  lastMessage: string;
+  chatId: string;
+  status: string;
+  selectedChatId: string | null;
+  setSelectedChatId: Dispatch<SetStateAction<string | null>>;
+}
+
+export interface IChatData {
+  id: string;
+  fullName: string;
+  username: string;
+  phone: string;
+  participantStatus: string;
+  lastMessage: string;
+  photo: string;
 }

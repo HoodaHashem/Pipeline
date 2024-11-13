@@ -35,12 +35,12 @@ const FriendsSection = () => {
       setContacts(data);
     };
 
-    socket.emit("getContacts");
+    socket.emit("getAcceptedFriends");
 
-    socket.on("contactsUpdate", handleContacts);
+    socket.on("sendFriends", handleContacts);
 
     return () => {
-      socket.off("contactsUpdate");
+      socket.off("sendFriends");
     };
   }, [socket, debouncedSearch]);
 

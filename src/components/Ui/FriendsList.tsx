@@ -2,13 +2,11 @@ import { HiChatAlt2 } from "react-icons/hi";
 import { API_PUBLIC_URL } from "../../lib/apiCenter/apiConfig";
 import useChats from "../../hooks/useChats";
 import { useState } from "react";
-import {
-  createNewChat,
-  getExistingChat,
-} from "../../lib/apiCenter/chatService";
+import { createNewChat } from "../../lib/apiCenter/chatService";
 import SecondaryLoader from "./SecondaryLoader";
 import { getFriendData } from "../../lib/apiCenter";
 import useModal from "../../hooks/useModal";
+import { useUserData } from "../../hooks/useUserData";
 
 const FriendsList = ({
   src = `defaultProfilePhoto.jpg`,
@@ -19,25 +17,15 @@ const FriendsList = ({
   const { dataSetter } = useChats();
   const [isLoading, setIsLoading] = useState(false);
   const { setIsModalOpen } = useModal();
+  const { userData } = useUserData();
 
   const handleChats = async (toUserId: string) => {
-    setIsLoading(true);
-    const checkBeforeCreating = await getExistingChat({ id: toUserId });
-    if (checkBeforeCreating.data !== null) {
-      const user = await getFriendData({ id: toUserId });
-      if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
-
-      dataSetter({
-        name: user.data.fullName,
-        status: user.data.status,
-        photo: user.data.photo,
-        selectedChat: checkBeforeCreating.data._id,
+    if (userData?._id) {
+      setIsLoading(true);
+      const response = await createNewChat({
+        ids: [userData._id, toUserId],
+        type: "direct",
       });
-
-      setIsLoading(false);
-      setIsModalOpen(false);
-    } else {
-      const response = await createNewChat({ receiverId: toUserId });
       const user = await getFriendData({ id: toUserId });
       if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
       dataSetter({
@@ -70,7 +58,7 @@ const FriendsList = ({
           <p className="text-sm text-gray-500 truncate">{username}</p>
         </div>
         <button
-          className="p-2 bg-fifth rounded-lg"
+          className="flex justify-center items-center p-2 bg-fifth rounded-lg"
           onClick={() => handleChats(id)}
         >
           {isLoading ? (

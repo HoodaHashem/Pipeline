@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Contact from "./Contact";
 import { useSocket } from "../../../hooks/useSocket";
-import { IContact } from "../../../lib/interfaces";
+import { IChatData } from "../../../lib/interfaces";
 import { TContacts } from "../../../lib/types";
 
 const ContactList = () => {
   const socket = useSocket();
   const [contacts, setContacts] = useState<TContacts | null>(null);
+  const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!socket) return;
@@ -15,9 +16,9 @@ const ContactList = () => {
       setContacts(data);
     };
 
-    socket.emit("getContacts");
+    socket.emit("getChats");
 
-    socket.on("contactsUpdate", handleContacts);
+    socket.on("chatsUpdate", handleContacts);
 
     return () => {
       socket.off("contactsUpdate");
@@ -31,14 +32,17 @@ const ContactList = () => {
       </h3>
       {contacts && contacts.length > 0 ? (
         <div className="divide-y divide-gray-300 dark:divide-gray-800 ">
-          {contacts?.map((ele: IContact, idx) => {
+          {contacts?.map((ele: IChatData, idx) => {
             return (
               <Contact
                 key={idx}
                 src={ele.photo}
                 contactName={ele.fullName}
-                lastMsg="fuck this shit is good"
-                id={ele._id}
+                status={ele.participantStatus}
+                lastMessage={ele.lastMessage}
+                chatId={ele.id}
+                selectedChatId={selectedChatId}
+                setSelectedChatId={setSelectedChatId}
               />
             );
           })}

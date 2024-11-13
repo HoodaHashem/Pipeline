@@ -12,10 +12,8 @@ import { HiChatAlt2 } from "react-icons/hi";
 import useChats from "../../hooks/useChats";
 import useModal from "../../hooks/useModal";
 import { getFriendData } from "../../lib/apiCenter";
-import {
-  createNewChat,
-  getExistingChat,
-} from "../../lib/apiCenter/chatService";
+import { createNewChat } from "../../lib/apiCenter/chatService";
+import { useUserData } from "../../hooks/useUserData";
 
 const SearchBar = ({
   input,
@@ -27,25 +25,15 @@ const SearchBar = ({
   const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
   const { dataSetter } = useChats();
   const { setIsModalOpen } = useModal();
+  const { userData } = useUserData();
 
   const handleChats = async (toUserId: string) => {
-    setLoadingUserId(toUserId);
-    const checkBeforeCreating = await getExistingChat({ id: toUserId });
-    if (checkBeforeCreating.data !== null) {
-      const user = await getFriendData({ id: toUserId });
-      if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
-
-      dataSetter({
-        name: user.data.fullName,
-        status: user.data.status,
-        photo: user.data.photo,
-        selectedChat: checkBeforeCreating.data._id,
+    if (userData?._id) {
+      setLoadingUserId(toUserId);
+      const response = await createNewChat({
+        ids: [userData._id, toUserId],
+        type: "direct",
       });
-
-      setLoadingUserId(null);
-      setIsModalOpen(false);
-    } else {
-      const response = await createNewChat({ receiverId: toUserId });
       const user = await getFriendData({ id: toUserId });
       if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
       dataSetter({
@@ -55,10 +43,11 @@ const SearchBar = ({
         selectedChat: response.data._id,
       });
 
-      setLoadingUserId(null);
+      setLoadingUserId(toUserId);
       setIsModalOpen(false);
     }
   };
+
   return (
     <div>
       <div className="relative w-[400px] bg-transparent rounded-2xl shadow-md p-1.5 mt-2  border-gray-300 dark:border-gray-800 border">

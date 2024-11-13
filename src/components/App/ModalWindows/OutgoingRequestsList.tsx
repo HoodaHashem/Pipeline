@@ -13,11 +13,13 @@ const OutgoingRequestsList = (value: IOutgoingRequests) => {
   const socket = useSocket();
 
   const cancelFriendRequest = (userId: string) => {
-    setLoadingState(true);
-    setTimeout(() => {
-      socket.emit("cancelFriendRequest", userId);
-      setLoadingState(false);
-    }, 3000);
+    if (socket) {
+      setLoadingState(true);
+      setTimeout(() => {
+        socket.emit("cancelFriendRequest", userId);
+        setLoadingState(false);
+      }, 3000);
+    }
   };
 
   return (
@@ -60,10 +62,10 @@ const OutgoingRequestsList = (value: IOutgoingRequests) => {
 
           <div className="flex items-center justify-between mt-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-              {value.acceptance}
+              {value.status}
             </span>
 
-            {value.acceptance === "pending" ? (
+            {value.status === "pending" ? (
               <button
                 onClick={() => cancelFriendRequest(value.to._id)}
                 className="p-2 text-second  bg-gray-300 dark:bg-gray-100 dark:bg-gray-700/50 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-500/20"

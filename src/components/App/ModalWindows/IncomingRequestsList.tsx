@@ -70,9 +70,9 @@ const IncomingRequestsList = (value: IIncomingRequests) => {
 
           <div className="flex items-center justify-between mt-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mr-5">
-              {value.acceptance}
+              {value.status}
             </span>
-            {value.acceptance !== "pending" ? (
+            {value.status !== "pending" ? (
               ""
             ) : (
               <div className="flex gap-2">

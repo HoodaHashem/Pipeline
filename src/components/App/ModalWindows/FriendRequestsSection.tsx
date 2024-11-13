@@ -27,7 +27,7 @@ const FriendRequestsSection = () => {
 
         const pendingCount = Array.isArray(data.incomingRequests)
           ? data.incomingRequests.filter(
-              (req: IIncomingRequests) => req.acceptance === "pending",
+              (req: IIncomingRequests) => req.status === "pending",
             ).length
           : 0;
 

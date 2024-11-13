@@ -1,4 +1,4 @@
-import { IContact } from "./interfaces";
+import { IChatData } from "./interfaces";
 
 export type inputType = "number" | "email" | "password" | "text";
 
@@ -20,7 +20,7 @@ export type endPointsType = {
   GET_OLD_CHAT: string;
 };
 
-export type TContacts = IContact[];
+export type TContacts = IChatData[];
 
 export type TChatsState = {
   status: string | null;

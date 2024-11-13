@@ -122,7 +122,6 @@ export const handleSubmitSignUp = (
     if (Object.keys(newErrors).length === 0) {
       setIsLoading(true);
       const result = await signUp(formState);
-      console.log(result);
       setIsLoading(false);
       setErrors(await handleFieldError(result));
       if (result.status === "success") setApiApproval(true);
