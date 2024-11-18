@@ -33,7 +33,7 @@ const ServerDown = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="flex flex-col items-center  space-y-6 lg:w-1/2">
             <img
-              src="./logo.png"
+              src="./logo.svg"
               alt="logo"
               className="w-56 lg:w-80 transition-transform hover:scale-105"
             />

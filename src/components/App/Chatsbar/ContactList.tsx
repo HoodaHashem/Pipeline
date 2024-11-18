@@ -16,9 +16,9 @@ const ContactList = () => {
       setContacts(data);
     };
 
-    socket.emit("getChats");
+    socket.emit("getContacts");
 
-    socket.on("chatsUpdate", handleContacts);
+    socket.on("contactsUpdate", handleContacts);
 
     return () => {
       socket.off("contactsUpdate");
@@ -33,14 +33,16 @@ const ContactList = () => {
       {contacts && contacts.length > 0 ? (
         <div className="divide-y divide-gray-300 dark:divide-gray-800 ">
           {contacts?.map((ele: IChatData, idx) => {
+            const otherParticipent = ele.participants[0];
             return (
               <Contact
                 key={idx}
-                src={ele.photo}
-                contactName={ele.fullName}
-                status={ele.participantStatus}
+                src={otherParticipent.photo}
+                contactName={otherParticipent.fullName}
+                status={otherParticipent.status}
                 lastMessage={ele.lastMessage}
-                chatId={ele.id}
+                chatId={ele._id}
+                userId={otherParticipent._id}
                 selectedChatId={selectedChatId}
                 setSelectedChatId={setSelectedChatId}
               />

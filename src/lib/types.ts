@@ -27,4 +27,5 @@ export type TChatsState = {
   name: string | null;
   selectedChat: string | null;
   photo: string | null;
+  userId: string | null;
 };

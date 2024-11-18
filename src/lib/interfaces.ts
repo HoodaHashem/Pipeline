@@ -81,6 +81,7 @@ export interface IUserData {
   fullName?: string;
   isValid?: boolean;
   photo?: string;
+  status?: string;
   createdAt?: string;
 }
 
@@ -196,6 +197,7 @@ export interface IChatsContext {
   name: string | null;
   status: string | null;
   photo: string | null;
+  userId: string | null;
   dataSetter: Dispatch<SetStateAction<TChatsState>>;
 }
 
@@ -205,16 +207,30 @@ export interface IContact {
   lastMessage: string;
   chatId: string;
   status: string;
+  userId: string;
   selectedChatId: string | null;
+
   setSelectedChatId: Dispatch<SetStateAction<string | null>>;
 }
 
 export interface IChatData {
-  id: string;
-  fullName: string;
+  _id: string;
+  lastMessage: string;
+  participants: IParticipantData[];
+}
+
+export interface IParticipantData {
+  _id: string;
+  email: string;
   username: string;
   phone: string;
-  participantStatus: string;
-  lastMessage: string;
+  fullName: string;
   photo: string;
+  status: string;
+}
+
+export interface ICreateChat {
+  _id: string;
+  type: string;
+  participants: IParticipantData[];
 }

@@ -2,11 +2,10 @@ import { HiChatAlt2 } from "react-icons/hi";
 import { API_PUBLIC_URL } from "../../lib/apiCenter/apiConfig";
 import useChats from "../../hooks/useChats";
 import { useState } from "react";
-import { createNewChat } from "../../lib/apiCenter/chatService";
 import SecondaryLoader from "./SecondaryLoader";
-import { getFriendData } from "../../lib/apiCenter";
 import useModal from "../../hooks/useModal";
-import { useUserData } from "../../hooks/useUserData";
+import { useSocket } from "../../hooks/useSocket";
+import { ICreateChat } from "../../lib/interfaces";
 
 const FriendsList = ({
   src = `defaultProfilePhoto.jpg`,
@@ -17,28 +16,35 @@ const FriendsList = ({
   const { dataSetter } = useChats();
   const [isLoading, setIsLoading] = useState(false);
   const { setIsModalOpen } = useModal();
-  const { userData } = useUserData();
+  const socket = useSocket();
 
-  const handleChats = async (toUserId: string) => {
-    if (userData?._id) {
-      setIsLoading(true);
-      const response = await createNewChat({
-        ids: [userData._id, toUserId],
-        type: "direct",
-      });
-      const user = await getFriendData({ id: toUserId });
-      if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
+  const handleChats = async () => {
+    setIsLoading(true);
+    const handleGettingChats = (data: ICreateChat) => {
+      const user = data.participants[0];
+      if (!user.photo) user.photo = "defaultProfilePhoto.jpg";
+
       dataSetter({
-        name: user.data.fullName,
-        status: user.data.status,
-        photo: user.data.photo,
-        selectedChat: response.data._id,
+        name: user.fullName,
+        photo: user.photo,
+        status: user.status,
+        userId: user._id,
+        selectedChat: data._id,
       });
+    };
 
-      setIsLoading(false);
-      setIsModalOpen(false);
+    if (socket) {
+      socket.emit("createNewChat", {
+        chatType: "direct",
+        participants: [id],
+      });
+      socket.on("getChats", handleGettingChats);
     }
+
+    setIsLoading(false);
+    setIsModalOpen(false);
   };
+
   return (
     <div className="w-96 text-left p-3 rounded-lg ">
       <div className="flex items-center space-x-3">
@@ -59,7 +65,7 @@ const FriendsList = ({
         </div>
         <button
           className="flex justify-center items-center p-2 bg-fifth rounded-lg"
-          onClick={() => handleChats(id)}
+          onClick={() => handleChats()}
         >
           {isLoading ? (
             <SecondaryLoader />

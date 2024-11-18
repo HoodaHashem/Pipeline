@@ -8,6 +8,7 @@ const ChatsProvider = ({ children }: { children: ReactNode }) => {
     name: null,
     selectedChat: null,
     photo: null,
+    userId: null,
   });
 
   const value = {
@@ -15,6 +16,7 @@ const ChatsProvider = ({ children }: { children: ReactNode }) => {
     name: data.name,
     photo: data.photo,
     selectedChat: data.selectedChat,
+    userId: data.userId,
     dataSetter: setData,
   };
   return (

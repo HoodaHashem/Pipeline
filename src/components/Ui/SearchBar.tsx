@@ -11,8 +11,6 @@ import ContactLoader from "../App/ModalWindows/ContactLoader";
 import { HiChatAlt2 } from "react-icons/hi";
 import useChats from "../../hooks/useChats";
 import useModal from "../../hooks/useModal";
-import { getFriendData } from "../../lib/apiCenter";
-import { createNewChat } from "../../lib/apiCenter/chatService";
 import { useUserData } from "../../hooks/useUserData";
 
 const SearchBar = ({
@@ -27,26 +25,26 @@ const SearchBar = ({
   const { setIsModalOpen } = useModal();
   const { userData } = useUserData();
 
-  const handleChats = async (toUserId: string) => {
-    if (userData?._id) {
-      setLoadingUserId(toUserId);
-      const response = await createNewChat({
-        ids: [userData._id, toUserId],
-        type: "direct",
-      });
-      const user = await getFriendData({ id: toUserId });
-      if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
-      dataSetter({
-        name: user.data.fullName,
-        status: user.data.status,
-        photo: user.data.photo,
-        selectedChat: response.data._id,
-      });
-
-      setLoadingUserId(toUserId);
-      setIsModalOpen(false);
-    }
-  };
+  // const handleChats = async (toUserId: string) => {
+  //   if (userData?._id) {
+  //     setLoadingUserId(toUserId);
+  //     const response = await createNewChat({
+  //       ids: [userData._id, toUserId],
+  //       type: "direct",
+  //     });
+  //     const user = await getFriendData({ id: toUserId });
+  //     if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
+  //     dataSetter({
+  //       name: user.data.fullName,
+  //       status: user.data.status,
+  //       photo: user.data.photo,
+  //       selectedChat: response.data._id,
+  //     });
+  //
+  //     setLoadingUserId(toUserId);
+  //     setIsModalOpen(false);
+  //   }
+  // };
 
   return (
     <div>

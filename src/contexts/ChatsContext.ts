@@ -6,6 +6,7 @@ const ChatsContext = createContext<IChatsContext>({
   name: null,
   selectedChat: null,
   photo: null,
+  userId: null,
   dataSetter: () => {},
 });
 

@@ -3,11 +3,16 @@ import { GrAttachment } from "react-icons/gr";
 import { IoIosCamera } from "react-icons/io";
 import { IoMic, IoSend } from "react-icons/io5";
 import useUpcomingFeature from "../../../hooks/useUpcomingFeature";
+import { useSocket } from "../../../hooks/useSocket";
+import useChats from "../../../hooks/useChats";
 
 const ChatInput = () => {
   const [text, setText] = useState("");
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const { setIsOpen } = useUpcomingFeature();
+  const socket = useSocket();
+  const { selectedChat, userId } = useChats();
+
   const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
     if (textAreaRef.current) {
@@ -16,6 +21,19 @@ const ChatInput = () => {
     }
   };
 
+  const handleSendMsg = ({
+    content,
+    chatId,
+    receiverId,
+  }: {
+    content: string;
+    chatId: string | null;
+    receiverId: string | null;
+  }) => {
+    if (socket) {
+      socket.emit("message:send", { chatId, content, receiverId });
+    }
+  };
   return (
     <div className="relative flex items-center p-3 transition-colors duration-500">
       <div className="p-2 flex items-center justify-between gap-2 ">
@@ -55,7 +73,13 @@ const ChatInput = () => {
                 ? "opacity-100 scale-100"
                 : "opacity-0 scale-95 pointer-events-none"
             }`}
-            onClick={() => setIsOpen(true)}
+            onClick={() =>
+              handleSendMsg({
+                content: text,
+                chatId: selectedChat,
+                receiverId: userId,
+              })
+            }
           />
         </div>
       </label>

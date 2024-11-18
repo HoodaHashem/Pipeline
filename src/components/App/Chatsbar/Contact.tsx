@@ -8,6 +8,7 @@ const Contact = ({
   lastMessage,
   chatId,
   status,
+  userId,
   selectedChatId,
   setSelectedChatId,
 }: IContact) => {
@@ -18,6 +19,7 @@ const Contact = ({
       name: contactName,
       status,
       photo: src,
+      userId: userId,
       selectedChat: chatId,
     });
     setSelectedChatId(chatId);

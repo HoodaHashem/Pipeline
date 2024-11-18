@@ -4,7 +4,7 @@ import LoadingContext from "../contexts/LoadingContext";
 interface IProp {
   children: ReactNode;
 }
-export const LoadingProvider = ({ children }: IProp) => {
+const LoadingProvider = ({ children }: IProp) => {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
@@ -13,3 +13,5 @@ export const LoadingProvider = ({ children }: IProp) => {
     </LoadingContext.Provider>
   );
 };
+
+export default LoadingProvider;

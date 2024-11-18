@@ -4,7 +4,7 @@ import useDebounce from "../../../hooks/useDebounce";
 import { searchForFriend } from "../../../lib/apiCenter";
 import { useSocket } from "../../../hooks/useSocket";
 import { TContacts } from "../../../lib/types";
-import { IContact } from "../../../lib/interfaces";
+import { IUserData } from "../../../lib/interfaces";
 import FriendsList from "../../Ui/FriendsList";
 
 const FriendsSection = () => {
@@ -59,7 +59,7 @@ const FriendsSection = () => {
         <li>
           {contacts && contacts.length > 0 ? (
             <div className="divide-y divide-gray-300 dark:divide-gray-800 ">
-              {contacts?.map((ele: IContact, idx) => {
+              {contacts?.map((ele: IUserData, idx) => {
                 if (!ele.photo) ele.photo = "defaultProfilePhoto.jpg";
 
                 return (
