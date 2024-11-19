@@ -1,14 +1,10 @@
-import { useReducer, useState } from "react";
+import { ChangeEvent, useReducer, useState } from "react";
 import Input from "../Ui/Input";
-import {
-  createHandleChange,
-  handleSubmitSignUp,
-  signUpReducer,
-} from "../../lib/helpers/forms";
+import { checkField, signUpReducer } from "../../lib/helpers/forms";
 import { IStateSignUp } from "../../lib/interfaces";
 import SecondaryLoader from "../Ui/SecondaryLoader";
-import { Navigate } from "react-router-dom";
-import useLoad from "../../hooks/useLoad";
+import { signUp } from "../../lib/apiCenter";
+import { handleFieldError } from "../../lib/apiCenter/errorHandler";
 
 const initialStates = {
   email: "",
@@ -22,24 +18,42 @@ const initialStates = {
 const SignUpForm = () => {
   const [formState, dispatch] = useReducer(signUpReducer, initialStates);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const { isLoading, setIsLoading } = useLoad();
-  const [apiApproval, setApiApproval] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { email, fullName, username, confirmPassword, password, phone } =
     formState as IStateSignUp;
 
-  const handleChange = createHandleChange(dispatch, setErrors, password);
-  const handleSubmit = handleSubmitSignUp(
-    setApiApproval,
-    setIsLoading,
-    formState,
-    setErrors,
-    password,
-  );
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const field = e.target.id;
+    const value = e.target.value;
+    dispatch({ type: "UPDATE_FIELD", field, value });
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+      if (checkField(field, value, password)) {
+        delete newErrors[field];
+      }
+      return newErrors;
+    });
+  };
 
-  if (apiApproval) {
-    return <Navigate to="/app" />;
-  }
+  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newErrors: { [key: string]: string } = {};
+    Object.entries(formState).forEach(([key, value]) => {
+      const error = checkField(key, value, password);
+      if (error) {
+        newErrors[key] = error;
+      }
+    });
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      setIsLoading(true);
+      const result = await signUp(formState);
+      setIsLoading(false);
+      setErrors(await handleFieldError(result));
+    }
+  };
 
   return (
     <form

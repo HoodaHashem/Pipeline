@@ -1,14 +1,12 @@
-import { useReducer, useState } from "react";
+import { ChangeEvent, useReducer, useState } from "react";
 import Input from "../Ui/Input";
-import {
-  signInReducer,
-  handleSubmitSignIn,
-  createHandleChange,
-} from "../../lib/helpers/forms";
+import { signInReducer, checkField } from "../../lib/helpers/forms";
 import { IStateSignIn } from "../../lib/interfaces";
 import SecondaryLoader from "../Ui/SecondaryLoader";
 import { Navigate } from "react-router-dom";
 import useLoad from "../../hooks/useLoad";
+import { handleFieldError } from "../../lib/apiCenter/errorHandler";
+import { signIn } from "../../lib/apiCenter";
 
 const initialStates = {
   userIdentifier: "",
@@ -19,22 +17,46 @@ const SignInForm = () => {
   const [formState, dispatch] = useReducer(signInReducer, initialStates);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const { isLoading, setIsLoading } = useLoad();
-  const [apiApproval, setApiApproval] = useState(false);
-
   const { userIdentifier, signInPassword } = formState as IStateSignIn;
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const field = e.target.id;
+    const value = e.target.value;
+    dispatch({ type: "UPDATE_FIELD", field, value });
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+      if (checkField(field, value, signInPassword)) {
+        delete newErrors[field];
+      }
+      if (field === "userIdentifier") {
+        delete newErrors[field];
+      }
 
-  const handleChange = createHandleChange(dispatch, setErrors, signInPassword);
-  const handleSubmit = handleSubmitSignIn(
-    setApiApproval,
-    setIsLoading,
-    formState,
-    setErrors,
-    signInPassword,
-  );
+      return newErrors;
+    });
+  };
 
-  if (apiApproval) {
-    return <Navigate to="/app" />;
-  }
+  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newErrors: { [key: string]: string } = {};
+    Object.entries(formState).forEach(([key, value]) => {
+      const error = checkField(key, value, signInPassword);
+      if (error) {
+        newErrors[key] = error;
+      }
+    });
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      setIsLoading(true);
+      const result = await signIn(formState);
+      setIsLoading(false);
+      const apiErrors = await handleFieldError(result);
+      setErrors(apiErrors);
+      if (Object.keys(apiErrors).length === 0) {
+        return <Navigate to="/app" />;
+      }
+    }
+  };
 
   return (
     <form
@@ -70,7 +92,10 @@ const SignInForm = () => {
       >
         Forgot your password?
       </a>
-      <button className="rounded-full bg-first text-white text-xs font-bold py-3 px-11 uppercase tracking-wider transition duration-300 ease-in hover:bg-second dark:bg-fourth dark:hover:bg-third">
+      <button
+        className="rounded-full bg-first text-white text-xs font-bold py-3 px-11 uppercase tracking-wider transition duration-300 ease-in hover:bg-second dark:bg-fourth dark:hover:bg-third"
+        type="submit"
+      >
         {isLoading ? <SecondaryLoader /> : "Sign In"}
       </button>
     </form>

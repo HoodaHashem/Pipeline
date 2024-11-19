@@ -4,9 +4,6 @@ import {
   PASSWORD_MIN_CHARS,
   USERNAME_MIN_CHARS,
 } from "../constants";
-import { ChangeEvent } from "react";
-import { signIn, signUp } from "../apiCenter";
-import { handleFieldError } from "../apiCenter/errorHandler";
 
 export const checkField = (field: string, value: string, password?: string) => {
   if (!value.trim()) {
@@ -80,80 +77,4 @@ export const signInReducer = (state: IStateSignIn, action: IFormAction) => {
     default:
       return state;
   }
-};
-
-export const createHandleChange = (
-  dispatch: React.Dispatch<IFormAction>,
-  setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>,
-  password?: string,
-) => {
-  return (e: ChangeEvent<HTMLInputElement>) => {
-    const field = e.target.id;
-    const value = e.target.value;
-    dispatch({ type: "UPDATE_FIELD", field, value });
-    setErrors((prevErrors) => {
-      const newErrors = { ...prevErrors };
-      if (checkField(field, value, password)) {
-        delete newErrors[field];
-      }
-      return newErrors;
-    });
-  };
-};
-
-export const handleSubmitSignUp = (
-  setApiApproval: React.Dispatch<React.SetStateAction<boolean>>,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  formState: IStateSignUp,
-  setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>,
-  password?: string,
-) => {
-  return async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const newErrors: { [key: string]: string } = {};
-    Object.entries(formState).forEach(([key, value]) => {
-      const error = checkField(key, value, password);
-      if (error) {
-        newErrors[key] = error;
-      }
-    });
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      setIsLoading(true);
-      const result = await signUp(formState);
-      setIsLoading(false);
-      setErrors(await handleFieldError(result));
-      if (result.status === "success") setApiApproval(true);
-    }
-  };
-};
-
-export const handleSubmitSignIn = (
-  setApiApproval: React.Dispatch<React.SetStateAction<boolean>>,
-
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  formState: IStateSignIn,
-  setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>,
-  password?: string,
-) => {
-  return async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const newErrors: { [key: string]: string } = {};
-    Object.entries(formState).forEach(([key, value]) => {
-      const error = checkField(key, value, password);
-      if (error) {
-        newErrors[key] = error;
-      }
-    });
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      setIsLoading(true);
-      const result = await signIn(formState);
-      setIsLoading(false);
-      setErrors(await handleFieldError(result));
-      if (result.status === "success") setApiApproval(true);
-    }
-  };
 };

@@ -9,6 +9,12 @@ import AuthLayout from "../pages/auth/Layout";
 import App from "../pages/app";
 import AppLayout from "../pages/app/Layout";
 import ServerDown from "../pages/serverDown";
+import UserProvider from "../providers/UserProvider";
+import SocketProvider from "../providers/SocketProvider";
+import ChatsProvider from "../providers/ChatsProvider";
+import LoadingProvider from "../providers/LoadingProvider";
+import ModalProvider from "../providers/ModalProvider";
+import UpcomingFeatureProvider from "../providers/UpcomingFeatureProvider";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,10 +22,38 @@ const router = createBrowserRouter(
       <Route path="/">
         <Route index element={<HomePage />} />
       </Route>
-      <Route path="/auth" element={<AuthLayout />}>
+      <Route
+        path="/auth"
+        element={
+          <LoadingProvider>
+            <ModalProvider>
+              <AuthLayout />
+            </ModalProvider>
+          </LoadingProvider>
+        }
+      >
         <Route index element={<AuthPage />} />
       </Route>
-      <Route path="/app" element={<AppLayout />}>
+
+      {/*TODO: MAKE IT LOOK FINE */}
+      <Route
+        path="/app"
+        element={
+          <UserProvider>
+            <SocketProvider>
+              <ChatsProvider>
+                <LoadingProvider>
+                  <ModalProvider>
+                    <UpcomingFeatureProvider>
+                      <AppLayout />
+                    </UpcomingFeatureProvider>
+                  </ModalProvider>
+                </LoadingProvider>
+              </ChatsProvider>
+            </SocketProvider>
+          </UserProvider>
+        }
+      >
         <Route index element={<App />} />
       </Route>
       <Route path="/server-down">
