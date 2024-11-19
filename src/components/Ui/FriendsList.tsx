@@ -21,6 +21,7 @@ const FriendsList = ({
   const handleChats = async () => {
     setIsLoading(true);
     const handleGettingChats = (data: ICreateChat) => {
+      console.log(data);
       const user = data.participants[0];
       if (!user.photo) user.photo = "defaultProfilePhoto.jpg";
 

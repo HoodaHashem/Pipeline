@@ -1,4 +1,4 @@
-import { IoMdSearch } from "react-icons/io";
+import { IoMdClose, IoMdSearch } from "react-icons/io";
 import { ISearchbar } from "../../lib/interfaces";
 import Avatar from "../App/Avatar";
 import { API_PUBLIC_URL } from "../../lib/apiCenter/apiConfig";
@@ -46,6 +46,11 @@ const SearchBar = ({
   //   }
   // };
 
+  const handleClear = () => {
+    handleChange({
+      target: { value: "" },
+    } as React.ChangeEvent<HTMLInputElement>);
+  };
   return (
     <div>
       <div className="relative w-[400px] bg-transparent rounded-2xl shadow-md p-1.5 mt-2  border-gray-300 dark:border-gray-800 border">
@@ -59,6 +64,14 @@ const SearchBar = ({
           onChange={handleChange}
           className="peer w-full pl-9  py-[5px] text-base text-gray-600 dark:text-gray-400 bg-transparent rounded-lg focus:outline-none"
         />
+        {input && (
+          <button
+            onClick={handleClear}
+            className="absolute inset-y-0 right-0 pr-2.5 flex items-center text-text hover:text-gray-500 transition-colors"
+          >
+            <IoMdClose size={"20"} />
+          </button>
+        )}
         <label
           htmlFor="friendsSearchbar"
           className={`peer-focus:top-[-11px] peer-focus:left-[18px] peer-focus:scale-90 peer-focus:text-sm peer-focus:font-semibold peer-focus:text-third cursor-text absolute top-3 left-10 text-text bg-bg transition-all duration-300 ${input ? "scale-90 top-[-11px] left-[18px] text-sm font-semibold text-third" : ""} `}

@@ -20,6 +20,7 @@ const SignUpForm = () => {
   const [formState, dispatch] = useReducer(signUpReducer, initialStates);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [redirectToApp, setRedirectToApp] = useState(false);
 
   const { email, fullName, username, confirmPassword, password, phone } =
     formState as IStateSignUp;
@@ -55,11 +56,14 @@ const SignUpForm = () => {
       const apiErrors = await handleFieldError(result);
       setErrors(apiErrors);
       if (Object.keys(apiErrors).length === 0) {
-        return <Navigate to="/app" />;
+        setRedirectToApp(true);
       }
     }
   };
 
+  if (redirectToApp) {
+    return <Navigate to="/app" />;
+  }
   return (
     <form
       className="bg-third dark:bg-first flex items-center justify-center flex-col p-0 px-[50px] h-full text-center transition-all duration-500 ease-in-out transform gap-2"

@@ -22,16 +22,7 @@ const router = createBrowserRouter(
       <Route path="/">
         <Route index element={<HomePage />} />
       </Route>
-      <Route
-        path="/auth"
-        element={
-          <LoadingProvider>
-            <ModalProvider>
-              <AuthLayout />
-            </ModalProvider>
-          </LoadingProvider>
-        }
-      >
+      <Route path="/auth" element={<AuthLayout />}>
         <Route index element={<AuthPage />} />
       </Route>
 
@@ -42,13 +33,11 @@ const router = createBrowserRouter(
           <UserProvider>
             <SocketProvider>
               <ChatsProvider>
-                <LoadingProvider>
-                  <ModalProvider>
-                    <UpcomingFeatureProvider>
-                      <AppLayout />
-                    </UpcomingFeatureProvider>
-                  </ModalProvider>
-                </LoadingProvider>
+                <ModalProvider>
+                  <UpcomingFeatureProvider>
+                    <AppLayout />
+                  </UpcomingFeatureProvider>
+                </ModalProvider>
               </ChatsProvider>
             </SocketProvider>
           </UserProvider>
