@@ -40,7 +40,7 @@ const ContactList = () => {
                 src={otherParticipent.photo}
                 contactName={otherParticipent.fullName}
                 status={otherParticipent.status}
-                lastMessage={ele.lastMessage}
+                lastMessage={ele.lastMessage.content}
                 chatId={ele._id}
                 userId={otherParticipent._id}
                 selectedChatId={selectedChatId}
