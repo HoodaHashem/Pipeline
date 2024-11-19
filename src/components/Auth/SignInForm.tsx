@@ -4,7 +4,6 @@ import { signInReducer, checkField } from "../../lib/helpers/forms";
 import { IStateSignIn } from "../../lib/interfaces";
 import SecondaryLoader from "../Ui/SecondaryLoader";
 import { Navigate } from "react-router-dom";
-import useLoad from "../../hooks/useLoad";
 import { handleFieldError } from "../../lib/apiCenter/errorHandler";
 import { signIn } from "../../lib/apiCenter";
 
@@ -16,8 +15,9 @@ const initialStates = {
 const SignInForm = () => {
   const [formState, dispatch] = useReducer(signInReducer, initialStates);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const { isLoading, setIsLoading } = useLoad();
+  const [isLoading, setIsLoading] = useState(false);
   const { userIdentifier, signInPassword } = formState as IStateSignIn;
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const field = e.target.id;
     const value = e.target.value;

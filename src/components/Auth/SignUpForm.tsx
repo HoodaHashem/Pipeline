@@ -5,6 +5,7 @@ import { IStateSignUp } from "../../lib/interfaces";
 import SecondaryLoader from "../Ui/SecondaryLoader";
 import { signUp } from "../../lib/apiCenter";
 import { handleFieldError } from "../../lib/apiCenter/errorHandler";
+import { Navigate } from "react-router-dom";
 
 const initialStates = {
   email: "",
@@ -51,7 +52,11 @@ const SignUpForm = () => {
       setIsLoading(true);
       const result = await signUp(formState);
       setIsLoading(false);
-      setErrors(await handleFieldError(result));
+      const apiErrors = await handleFieldError(result);
+      setErrors(apiErrors);
+      if (Object.keys(apiErrors).length === 0) {
+        return <Navigate to="/app" />;
+      }
     }
   };
 
