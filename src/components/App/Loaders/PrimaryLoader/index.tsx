@@ -1,4 +1,4 @@
-import LogoIcon from "../../Icons/LogoLoader";
+import LogoIcon from "../LogoLoader";
 import "./style.css";
 const PrimaryLoader = () => {
   return (

@@ -1,4 +1,4 @@
-import { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
+import { useState, useRef, ChangeEvent, KeyboardEvent, useEffect } from "react";
 import { GrAttachment } from "react-icons/gr";
 import { IoIosCamera } from "react-icons/io";
 import { IoMic, IoSend } from "react-icons/io5";
@@ -13,6 +13,9 @@ const ChatInput = () => {
   const socket = useSocket();
   const { selectedChat, userId } = useChats();
 
+  useEffect(() => {
+    textAreaRef.current?.focus();
+  }, []);
   const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
     if (textAreaRef.current) {
@@ -35,6 +38,7 @@ const ChatInput = () => {
       setText("");
       if (textAreaRef.current) {
         textAreaRef.current.style.height = "auto";
+        textAreaRef.current.focus();
       }
     }
   };

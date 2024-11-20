@@ -18,6 +18,7 @@ export type endPointsType = {
   CREATE_NEW_CHAT: string;
   GET_FRIEND_DATA: string;
   GET_OLD_CHAT: string;
+  GET_CHAT_DATA: string;
 };
 
 export type TContacts = IChatData[];
@@ -28,4 +29,5 @@ export type TChatsState = {
   selectedChat: string | null;
   photo: string | null;
   userId: string | null;
+  isChatLoading: boolean;
 };

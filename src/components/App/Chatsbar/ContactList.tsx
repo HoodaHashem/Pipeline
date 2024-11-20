@@ -33,6 +33,7 @@ const ContactList = () => {
       {contacts && contacts.length > 0 ? (
         <div className="divide-y divide-gray-300 dark:divide-gray-800 ">
           {contacts?.map((ele: IChatData, idx) => {
+            //TODO: PLEASE SOLVE THIS ERROR
             const otherParticipent = ele.participants[0];
             return (
               <Contact

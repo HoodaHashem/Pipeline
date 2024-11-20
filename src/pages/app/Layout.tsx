@@ -4,7 +4,7 @@ import Sidebar from "../../components/App/Sidebar";
 import useUpcomingFeature from "../../hooks/useUpcomingFeature";
 import UpcomingFeature from "../../components/Ui/UpcomingFeature";
 import { useEffect, useState } from "react";
-import PrimaryLoader from "../../components/Ui/PrimaryLoader";
+import PrimaryLoader from "../../components/App/Loaders/PrimaryLoader";
 import { END_POINTS } from "../../lib/apiCenter/apiConfig";
 
 const AppLayout = () => {

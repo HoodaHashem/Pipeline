@@ -7,7 +7,7 @@ import { FaUserXmark } from "react-icons/fa6";
 import { FaUserCheck } from "react-icons/fa";
 import { useState } from "react";
 import { useSocket } from "../../../hooks/useSocket";
-import SecondaryLoader from "../../Ui/SecondaryLoader";
+import SecondaryLoader from "../Loaders/SecondaryLoader";
 
 const IncomingRequestsList = (value: IIncomingRequests) => {
   const [loadingState, setLoadingState] = useState<"accept" | "reject" | null>(
@@ -18,14 +18,14 @@ const IncomingRequestsList = (value: IIncomingRequests) => {
   const onAccept = (userId: string) => {
     setLoadingState("accept");
     setTimeout(() => {
-      socket.emit("acceptFriendRequest", userId);
+      socket?.emit("acceptFriendRequest", userId);
       setLoadingState(null);
     }, 3000);
   };
   const onReject = (userId: string) => {
     setLoadingState("reject");
     setTimeout(() => {
-      socket.emit("rejectFriendRequest", userId);
+      socket?.emit("rejectFriendRequest", userId);
       setLoadingState(null);
     }, 3000);
   };

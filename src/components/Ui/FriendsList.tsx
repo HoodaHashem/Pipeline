@@ -2,7 +2,7 @@ import { HiChatAlt2 } from "react-icons/hi";
 import { API_PUBLIC_URL } from "../../lib/apiCenter/apiConfig";
 import useChats from "../../hooks/useChats";
 import { useState } from "react";
-import SecondaryLoader from "./SecondaryLoader";
+import SecondaryLoader from "../App/Loaders/SecondaryLoader";
 import useModal from "../../hooks/useModal";
 import { useSocket } from "../../hooks/useSocket";
 import { ICreateChat } from "../../lib/interfaces";

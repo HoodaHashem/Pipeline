@@ -193,12 +193,13 @@ export interface IOverlayProps {
 }
 
 export interface IChatsContext {
-  selectedChat: string | null;
-  name: string | null;
-  status: string | null;
-  photo: string | null;
-  userId: string | null;
-  dataSetter: Dispatch<SetStateAction<TChatsState>>;
+  status: TChatsState["status"];
+  name: TChatsState["name"];
+  selectedChat: TChatsState["selectedChat"];
+  photo: TChatsState["photo"];
+  userId: TChatsState["userId"];
+  isChatLoading: TChatsState["isChatLoading"];
+  dataSetter: (newData: Partial<TChatsState>) => void;
 }
 
 export interface IContact {
@@ -211,6 +212,7 @@ export interface IContact {
   selectedChatId: string | null;
 
   setSelectedChatId: Dispatch<SetStateAction<string | null>>;
+  setIsChatLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface IChatData {

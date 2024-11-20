@@ -9,15 +9,18 @@ const ChatsProvider = ({ children }: { children: ReactNode }) => {
     selectedChat: null,
     photo: null,
     userId: null,
+    isChatLoading: false,
   });
 
+  const dataSetter = (newData: Partial<TChatsState>) => {
+    setData((prev) => ({
+      ...prev,
+      ...newData,
+    }));
+  };
   const value = {
-    status: data.status,
-    name: data.name,
-    photo: data.photo,
-    selectedChat: data.selectedChat,
-    userId: data.userId,
-    dataSetter: setData,
+    ...data,
+    dataSetter,
   };
   return (
     <ChatsContext.Provider value={value}>{children} </ChatsContext.Provider>

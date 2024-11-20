@@ -1,5 +1,6 @@
 import useChats from "../../../hooks/useChats";
 import { API_PUBLIC_URL } from "../../../lib/apiCenter/apiConfig";
+import { getChatData } from "../../../lib/apiCenter/chatService";
 import { IContact } from "../../../lib/interfaces";
 
 const Contact = ({
@@ -15,12 +16,17 @@ const Contact = ({
   const { dataSetter } = useChats();
 
   const handleChats = async () => {
+    dataSetter({ isChatLoading: true });
+
+    const chatData = await getChatData(chatId);
+    console.log(chatData);
     dataSetter({
       name: contactName,
       status,
       photo: src,
       userId: userId,
       selectedChat: chatId,
+      isChatLoading: false,
     });
     setSelectedChatId(chatId);
   };

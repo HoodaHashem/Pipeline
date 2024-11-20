@@ -19,4 +19,5 @@ export const END_POINTS: endPointsType = {
   CREATE_NEW_CHAT: `${API_BASE_URL}/chats/createNewChat`,
   GET_FRIEND_DATA: `${API_BASE_URL}/users/`,
   GET_OLD_CHAT: `${API_BASE_URL}/chats/getExistingChat`,
+  GET_CHAT_DATA: `${API_BASE_URL}/chats`,
 };

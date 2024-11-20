@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import ModalWindow from "../ModalWindows";
 import { logOut } from "../../../lib/apiCenter";
 import { Navigate } from "react-router-dom";
-import SecondaryLoader from "../../Ui/SecondaryLoader";
+import SecondaryLoader from "../Loaders/SecondaryLoader";
 import useModal from "../../../hooks/useModal";
 
 const Sidebar = () => {

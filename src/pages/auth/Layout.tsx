@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Navbar from "../../components/Header/Navbar";
 import { useEffect, useState } from "react";
-import PrimaryLoader from "../../components/Ui/PrimaryLoader";
+import PrimaryLoader from "../../components/App/Loaders/PrimaryLoader";
 import { END_POINTS } from "../../lib/apiCenter/apiConfig";
 
 const AuthLayout = () => {

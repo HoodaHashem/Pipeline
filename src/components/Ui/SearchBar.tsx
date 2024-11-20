@@ -6,7 +6,7 @@ import HighlightText from "./HighlightText";
 import { FaPhoneAlt } from "react-icons/fa";
 import AddFriend from "./AddFriend";
 import { useState } from "react";
-import SecondaryLoader from "./SecondaryLoader";
+import SecondaryLoader from "../App/Loaders/SecondaryLoader";
 import ContactLoader from "../App/ModalWindows/ContactLoader";
 import { HiChatAlt2 } from "react-icons/hi";
 import useChats from "../../hooks/useChats";
@@ -25,6 +25,7 @@ const SearchBar = ({
   const { setIsModalOpen } = useModal();
   const { userData } = useUserData();
 
+  //TODO: FIX THIS ERROR
   // const handleChats = async (toUserId: string) => {
   //   if (userData?._id) {
   //     setLoadingUserId(toUserId);

@@ -17,7 +17,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { IoCloudUpload } from "react-icons/io5";
 import { API_PUBLIC_URL } from "../../../lib/apiCenter/apiConfig";
 import AvatarLoader from "../Loaders/avatarLoader";
-import SecondaryLoader from "../../Ui/SecondaryLoader";
+import SecondaryLoader from "../Loaders/SecondaryLoader";
 
 const UserSettings = ({ onClose }: IUserSettings) => {
   const [userData, setUserData] = useState<IUserData | null>({

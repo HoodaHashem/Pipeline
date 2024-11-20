@@ -7,46 +7,6 @@ const ChatMsgs = () => {
       <IncomingMsgs />
 
       <OutgoingMsgs />
-
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
-
-      <OutgoingMsgs />
-
-      <OutgoingMsgs />
-      <IncomingMsgs />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { ChangeEvent, useReducer, useState } from "react";
 import Input from "../Ui/Input";
 import { checkField, signUpReducer } from "../../lib/helpers/forms";
 import { IStateSignUp } from "../../lib/interfaces";
-import SecondaryLoader from "../Ui/SecondaryLoader";
+import SecondaryLoader from "../App/Loaders/SecondaryLoader";
 import { signUp } from "../../lib/apiCenter";
 import { handleFieldError } from "../../lib/apiCenter/errorHandler";
 import { Navigate } from "react-router-dom";

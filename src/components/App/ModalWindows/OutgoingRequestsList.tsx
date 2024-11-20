@@ -6,7 +6,7 @@ import { MdDoubleArrow } from "react-icons/md";
 import { IOutgoingRequests } from "../../../lib/interfaces";
 import { useState } from "react";
 import { useSocket } from "../../../hooks/useSocket";
-import SecondaryLoader from "../../Ui/SecondaryLoader";
+import SecondaryLoader from "../Loaders/SecondaryLoader";
 
 const OutgoingRequestsList = (value: IOutgoingRequests) => {
   const [loadingState, setLoadingState] = useState(false);
