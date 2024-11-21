@@ -10,6 +10,7 @@ const ChatsProvider = ({ children }: { children: ReactNode }) => {
     photo: null,
     userId: null,
     isChatLoading: false,
+    chatData: null,
   });
 
   const dataSetter = (newData: Partial<TChatsState>) => {

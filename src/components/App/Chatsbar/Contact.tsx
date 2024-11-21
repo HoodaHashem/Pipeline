@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import useChats from "../../../hooks/useChats";
 import { API_PUBLIC_URL } from "../../../lib/apiCenter/apiConfig";
 import { getChatData } from "../../../lib/apiCenter/chatService";
 import { IContact } from "../../../lib/interfaces";
+import { useSocket } from "../../../hooks/useSocket";
 
 const Contact = ({
   src = `defaultProfilePhoto.jpg`,
@@ -14,12 +16,12 @@ const Contact = ({
   setSelectedChatId,
 }: IContact) => {
   const { dataSetter } = useChats();
+  const socket = useSocket();
+  const [lastMsg, setLastMsg] = useState(lastMessage);
 
   const handleChats = async () => {
     dataSetter({ isChatLoading: true });
-
     const chatData = await getChatData(chatId);
-    console.log(chatData);
     dataSetter({
       name: contactName,
       status,
@@ -27,9 +29,24 @@ const Contact = ({
       userId: userId,
       selectedChat: chatId,
       isChatLoading: false,
+      chatData: chatData,
     });
     setSelectedChatId(chatId);
   };
+
+  useEffect(() => {
+    if (socket) {
+      const handleUpdateLastMsg = (msg) => {
+        if (msg._id === chatId) {
+          setLastMsg(msg.lastMessage.content);
+        }
+      };
+      socket.on("contacts:update", handleUpdateLastMsg);
+      return () => {
+        socket.off("contacts:update");
+      };
+    }
+  }, [socket]);
 
   return (
     <button
@@ -54,7 +71,7 @@ const Contact = ({
             {contactName}
           </h4>
           <p className="text-sm text-gray-700 dark:text-gray-300 truncate">
-            {lastMessage}
+            {lastMsg}
           </p>
         </div>
       </div>

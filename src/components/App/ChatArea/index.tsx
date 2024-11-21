@@ -1,31 +1,12 @@
-import { useEffect } from "react";
 import useChats from "../../../hooks/useChats";
 import ChatAreaHeading from "./ChatAreaHeading";
 import ChatMsgs from "./ChatMsgs";
 import ChatFooter from "./footer";
 import PipelineArea from "./PipelineArea";
-import { useSocket } from "../../../hooks/useSocket";
 import ChatsLoader from "../Loaders/ChatLoader";
 
 const ChatArea = () => {
-  const socket = useSocket();
   const { selectedChat, isChatLoading } = useChats();
-
-  //TODO: SOLVE THIS ERROR
-  useEffect(() => {
-    const handleMessageReceived = (data) => {
-      console.log("Message received:", data);
-      // TODO: Process and update chat messages
-    };
-
-    if (socket) {
-      socket.on("message:receive", handleMessageReceived);
-
-      return () => {
-        socket.off("message:receive", handleMessageReceived);
-      };
-    }
-  }, [socket]);
 
   if (isChatLoading) {
     return (
