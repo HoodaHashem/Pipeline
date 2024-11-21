@@ -6,10 +6,13 @@ import UpcomingFeature from "../../components/Ui/UpcomingFeature";
 import { useEffect, useState } from "react";
 import PrimaryLoader from "../../components/App/Loaders/PrimaryLoader";
 import { END_POINTS } from "../../lib/apiCenter/apiConfig";
+import PhoneSidebar from "../../components/App/PhoneSidebar";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const AppLayout = () => {
   const { isOpen, setIsOpen } = useUpcomingFeature();
   const [isAuth, setIsAuth] = useState<boolean | null | "serverDown">(null);
+  const { width, height } = useWindowSize();
 
   const authenticate = async () => {
     try {
@@ -51,6 +54,18 @@ const AppLayout = () => {
 
   if (isAuth === false) return <Navigate to={"/auth"} />;
 
+  if (width < 640) {
+    return (
+      <div className="transition-all duration-500 bg-bg flex flex-row h-screen overflow-hidden">
+        <PhoneSidebar />
+        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+          <UpcomingFeature close={() => setIsOpen(false)} />
+        </Modal>
+
+        <Outlet />
+      </div>
+    );
+  }
   return (
     <div className="transition-all duration-500 bg-bg flex flex-row h-screen overflow-hidden">
       <Sidebar />
