@@ -18,11 +18,11 @@ const FriendsList = ({
   const { setIsModalOpen } = useModal();
   const socket = useSocket();
 
+  //TODO: SOLVE THIS TYPEING ERROR
   const handleChats = async () => {
     setIsLoading(true);
     const handleGettingChats = (data: ICreateChat) => {
-      console.log(data);
-      const user = data.participants[0];
+      const user = data.chat.participants[0];
       if (!user.photo) user.photo = "defaultProfilePhoto.jpg";
 
       dataSetter({
@@ -30,7 +30,8 @@ const FriendsList = ({
         photo: user.photo,
         status: user.status,
         userId: user._id,
-        selectedChat: data._id,
+        selectedChat: data.chat._id,
+        chatData: data,
       });
     };
 
@@ -47,7 +48,7 @@ const FriendsList = ({
   };
 
   return (
-    <div className="w-96 text-left p-3 rounded-lg ">
+    <div className=" text-left p-3 rounded-lg ">
       <div className="flex items-center space-x-3">
         <div className="relative">
           <img

@@ -12,7 +12,6 @@ import ServerDown from "../pages/serverDown";
 import UserProvider from "../providers/UserProvider";
 import SocketProvider from "../providers/SocketProvider";
 import ChatsProvider from "../providers/ChatsProvider";
-import LoadingProvider from "../providers/LoadingProvider";
 import ModalProvider from "../providers/ModalProvider";
 import UpcomingFeatureProvider from "../providers/UpcomingFeatureProvider";
 

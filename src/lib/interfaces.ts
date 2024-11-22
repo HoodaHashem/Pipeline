@@ -233,6 +233,5 @@ export interface IParticipantData {
 
 export interface ICreateChat {
   _id: string;
-  type: string;
-  participants: IParticipantData[];
+  chat: IChatData;
 }

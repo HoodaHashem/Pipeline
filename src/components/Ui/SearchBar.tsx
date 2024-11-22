@@ -9,9 +9,9 @@ import { useState } from "react";
 import SecondaryLoader from "../App/Loaders/SecondaryLoader";
 import ContactLoader from "../App/ModalWindows/ContactLoader";
 import { HiChatAlt2 } from "react-icons/hi";
-import useChats from "../../hooks/useChats";
-import useModal from "../../hooks/useModal";
-import { useUserData } from "../../hooks/useUserData";
+// import useChats from "../../hooks/useChats";
+// import useModal from "../../hooks/useModal";
+// import { useUserData } from "../../hooks/useUserData";
 
 const SearchBar = ({
   input,
@@ -21,9 +21,9 @@ const SearchBar = ({
   debouncedSearch,
 }: ISearchbar) => {
   const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
-  const { dataSetter } = useChats();
-  const { setIsModalOpen } = useModal();
-  const { userData } = useUserData();
+  // const { dataSetter } = useChats();
+  // const { setIsModalOpen } = useModal();
+  // const { userData } = useUserData();
 
   //TODO: FIX THIS ERROR
   // const handleChats = async (toUserId: string) => {
@@ -54,7 +54,7 @@ const SearchBar = ({
   };
   return (
     <div>
-      <div className="relative w-[400px] bg-transparent rounded-2xl shadow-md p-1.5 mt-2  border-gray-300 dark:border-gray-800 border">
+      <div className="relative   bg-transparent rounded-2xl shadow-md p-1.5 mt-2  border-gray-300 dark:border-gray-800 border">
         <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-text">
           <IoMdSearch size={"25"} />
         </div>
@@ -92,7 +92,7 @@ const SearchBar = ({
         divide-y divide-gray-200/10
         bg-white/10
         no-scrollbar
-        h-60
+        h-40
       `}
       >
         {loadingState ? (

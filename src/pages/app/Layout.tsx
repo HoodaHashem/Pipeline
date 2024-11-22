@@ -12,7 +12,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 const AppLayout = () => {
   const { isOpen, setIsOpen } = useUpcomingFeature();
   const [isAuth, setIsAuth] = useState<boolean | null | "serverDown">(null);
-  const { width, height } = useWindowSize();
+  const { width } = useWindowSize();
 
   const authenticate = async () => {
     try {
@@ -54,7 +54,7 @@ const AppLayout = () => {
 
   if (isAuth === false) return <Navigate to={"/auth"} />;
 
-  if (width < 640) {
+  if (width <= 600) {
     return (
       <div className="transition-all duration-500 bg-bg flex flex-row h-screen overflow-hidden">
         <PhoneSidebar />
@@ -66,16 +66,20 @@ const AppLayout = () => {
       </div>
     );
   }
-  return (
-    <div className="transition-all duration-500 bg-bg flex flex-row h-screen overflow-hidden">
-      <Sidebar />
-      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-        <UpcomingFeature close={() => setIsOpen(false)} />
-      </Modal>
 
-      <Outlet />
-    </div>
-  );
+  if (width > 600 && width <= 1024) {
+    return <h1>tablet size</h1>;
+  } else
+    return (
+      <div className="transition-all duration-500 bg-bg flex flex-row h-screen overflow-hidden">
+        <Sidebar />
+        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+          <UpcomingFeature close={() => setIsOpen(false)} />
+        </Modal>
+
+        <Outlet />
+      </div>
+    );
 };
 
 export default AppLayout;
