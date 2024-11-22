@@ -104,7 +104,6 @@ const UserSettings = ({ onClose }: IUserSettings) => {
 
   useEffect(() => {
     filterUserData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleEdit = async (e: ChangeEvent<HTMLFormElement>) => {
