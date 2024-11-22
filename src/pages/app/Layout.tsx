@@ -56,7 +56,7 @@ const AppLayout = () => {
 
   if (width <= 600) {
     return (
-      <div className="transition-all duration-500 bg-bg flex flex-row h-screen overflow-hidden">
+      <div className="transition-all justify-center items-center duration-500 bg-bg flex flex-row h-screen overflow-hidden">
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
           <UpcomingFeature close={() => setIsOpen(false)} />
         </Modal>

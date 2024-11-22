@@ -16,13 +16,17 @@ const App = () => {
           <div className="flex justify-center items-center">
             <ChatsLoader />
           </div>
+        ) : selectedChat ? (
+          <>
+            <div className="flex h-screen flex-1 overflow-hidden">
+              <ChatArea />
+            </div>
+          </>
         ) : (
           <>
-            {" "}
             <PhoneSidebar />
             <div className="flex h-screen flex-1 overflow-hidden">
               <Chatsbar />
-              {/* <ChatArea /> */}
             </div>
           </>
         )}
