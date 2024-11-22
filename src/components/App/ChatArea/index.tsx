@@ -17,7 +17,7 @@ const ChatArea = () => {
   }
 
   return (
-    <div className="divide-y divide-gray-400 dark:divide-gray-800 flex-1 flex flex-col">
+    <div className="w-full divide-y divide-gray-400 dark:divide-gray-800  flex flex-col">
       {selectedChat ? (
         <>
           <ChatAreaHeading />

@@ -44,12 +44,13 @@ const ChatsbarHeading = () => {
       console.error(err);
     }
   };
+
   return (
     <header
-      className={`pt-6 pb-4 px-5 border-b border-gray-400 dark:border-gray-800 transition-all duration-500 ${isLoading ? "animate-pulse" : ""}`}
+      className={`pt-4 sm:pt-6 pb-4 px-4 sm:px-5 border-b border-gray-400 dark:border-gray-800 transition-all duration-500 ${isLoading ? "animate-pulse" : ""}`}
     >
-      <div className="flex justify-between items-center mb-3">
-        <div className="flex items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
+        <div className="flex items-center w-full mb-2 sm:mb-0">
           <div className="inline-flex items-start mr-3">
             {isLoading ? (
               <AvatarLoader size="md" />
@@ -61,16 +62,16 @@ const ChatsbarHeading = () => {
               />
             )}
           </div>
-          <div className="pr-1">
-            <h2 className="text-xl leading-snug font-bold text-text transition-colors duration-500">
-              {isLoading ? <TextLoader w="w-48" h="h-4" /> : userData?.fullName}
+          <div className="pr-1 flex-grow">
+            <h2 className="text-lg sm:text-xl  leading-snug font-bold text-text transition-colors duration-500 truncate">
+              {isLoading ? <TextLoader w="w-36" h="h-4" /> : userData?.fullName}
             </h2>
 
-            <div className="flex items-center  text-sm font-medium text-second transition-colors duration-500">
+            <div className="flex items-center text-xs sm:text-sm font-medium text-second transition-colors duration-500">
               {isLoading ? (
                 ""
               ) : (
-                <p className="text-second text-sm transition-colors duration-500 font-bold">
+                <p className="text-second text-xs sm:text-sm transition-colors duration-500 font-bold">
                   @
                 </p>
               )}
@@ -80,38 +81,38 @@ const ChatsbarHeading = () => {
               {isLoading ? (
                 <TextLoader w="w-3" h="h-3" />
               ) : isCopied ? (
-                <FaClipboardCheck className=" ml-4 text-second transition-colors duration-500 cursor-pointer" />
+                <FaClipboardCheck className="ml-2 sm:ml-4 text-second transition-colors duration-500 cursor-pointer" />
               ) : (
                 <FaClipboard
-                  className=" ml-4  text-second transition-colors duration-500 cursor-pointer"
+                  className="ml-2 sm:ml-4 text-second transition-colors duration-500 cursor-pointer"
                   onClick={handleCopy}
                 />
               )}
             </div>
           </div>
-        </div>
-        <div className="relative inline-flex flex-shrink-0">
-          <button className="transition-all duration-150 text-gray-400 hover:text-gray-500 rounded-full focus:ring-0 outline-none focus:outline-none">
-            {isLoading ? (
-              <TextLoader w="w-5" h="h-5" />
-            ) : (
-              <IoSettingsSharp
-                onClick={() => {
-                  setIsModalOpen(true);
-                  setModalType("userSettings");
-                }}
-                className="text-second cursor-pointer transition-all duration-500 hover:text-third"
-              />
-            )}
-          </button>
+          <div className="relative inline-flex flex-shrink-0 ml-2 sm:ml-0">
+            <button className="transition-all duration-150 text-gray-400 hover:text-gray-500 rounded-full focus:ring-0 outline-none focus:outline-none">
+              {isLoading ? (
+                ""
+              ) : (
+                <IoSettingsSharp
+                  onClick={() => {
+                    setIsModalOpen(true);
+                    setModalType("userSettings");
+                  }}
+                  className="text-second cursor-pointer transition-all duration-500 hover:text-third"
+                />
+              )}
+            </button>
+          </div>
         </div>
       </div>
-      <div className="flex items-center gap-3">
-        <div className="flex truncate items-center text-sm font-medium whitespace-nowrap text-gray-500 dark:text-gray-400 ml-2">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
+        <div className="flex truncate items-center text-xs sm:text-sm font-medium whitespace-nowrap text-gray-500 dark:text-gray-400 ml-0 sm:ml-2">
           {isLoading ? (
             ""
           ) : (
-            <p className="text-second text-sm transition-colors duration-500 font-bold">
+            <p className="text-second text-xs sm:text-sm transition-colors duration-500 font-bold mr-1">
               @
             </p>
           )}
@@ -119,11 +120,11 @@ const ChatsbarHeading = () => {
           {isLoading ? "" : userData?.email}
         </div>
 
-        <div className="flex truncate items-center text-sm font-medium whitespace-nowrap text-gray-500 dark:text-gray-400 ml-2">
+        <div className="flex truncate items-center text-xs sm:text-sm font-medium whitespace-nowrap text-gray-500 dark:text-gray-400 ml-0 sm:ml-2">
           {isLoading ? (
             ""
           ) : (
-            <p className="text-second text-sm transition-colors duration-500 font-bold">
+            <p className="text-second text-xs sm:text-sm transition-colors duration-500 font-bold mr-1">
               @
             </p>
           )}

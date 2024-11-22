@@ -57,7 +57,6 @@ const AppLayout = () => {
   if (width <= 600) {
     return (
       <div className="transition-all duration-500 bg-bg flex flex-row h-screen overflow-hidden">
-        <PhoneSidebar />
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
           <UpcomingFeature close={() => setIsOpen(false)} />
         </Modal>
@@ -68,7 +67,16 @@ const AppLayout = () => {
   }
 
   if (width > 600 && width <= 1024) {
-    return <h1>tablet size</h1>;
+    return (
+      <div className="transition-all duration-500 bg-bg flex flex-row h-screen overflow-hidden">
+        <PhoneSidebar />
+        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+          <UpcomingFeature close={() => setIsOpen(false)} />
+        </Modal>
+
+        <Outlet />
+      </div>
+    );
   } else
     return (
       <div className="transition-all duration-500 bg-bg flex flex-row h-screen overflow-hidden">

@@ -2,7 +2,7 @@ import LogoIcon from "../LogoLoader";
 import "./style.css";
 const ChatsLoader = () => {
   return (
-    <div className=" fixed justify-center items-center ">
+    <div className="justify-center items-center ">
       <LogoIcon />
     </div>
   );
