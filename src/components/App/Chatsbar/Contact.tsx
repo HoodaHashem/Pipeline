@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useChats from "../../../hooks/useChats";
 import { API_PUBLIC_URL } from "../../../lib/apiCenter/apiConfig";
 import { getChatData } from "../../../lib/apiCenter/chatService";
-import { IContact } from "../../../lib/interfaces";
+import { IChat, IContact } from "../../../lib/interfaces";
 import { useSocket } from "../../../hooks/useSocket";
 
 const Contact = ({
@@ -22,6 +22,7 @@ const Contact = ({
   const handleChats = async () => {
     dataSetter({ isChatLoading: true });
     const chatData = await getChatData(chatId);
+    console.log(chatData);
     dataSetter({
       name: contactName,
       status,
@@ -36,7 +37,7 @@ const Contact = ({
 
   useEffect(() => {
     if (socket) {
-      const handleUpdateLastMsg = (msg) => {
+      const handleUpdateLastMsg = (msg: IChat) => {
         if (msg._id === chatId) {
           setLastMsg(msg.lastMessage.content);
         }
@@ -46,7 +47,7 @@ const Contact = ({
         socket.off("contacts:update");
       };
     }
-  }, [socket]);
+  }, [socket, chatId]);
 
   return (
     <button

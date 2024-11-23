@@ -1,5 +1,5 @@
 import { IoMdClose, IoMdSearch } from "react-icons/io";
-import { ISearchbar } from "../../lib/interfaces";
+import { IGetChatData, ISearchbar } from "../../lib/interfaces";
 import Avatar from "../App/Avatar";
 import { API_PUBLIC_URL } from "../../lib/apiCenter/apiConfig";
 import HighlightText from "./HighlightText";
@@ -9,9 +9,9 @@ import { useState } from "react";
 import SecondaryLoader from "../App/Loaders/SecondaryLoader";
 import ContactLoader from "../App/ModalWindows/ContactLoader";
 import { HiChatAlt2 } from "react-icons/hi";
-// import useChats from "../../hooks/useChats";
-// import useModal from "../../hooks/useModal";
-// import { useUserData } from "../../hooks/useUserData";
+import useChats from "../../hooks/useChats";
+import useModal from "../../hooks/useModal";
+import { useSocket } from "../../hooks/useSocket";
 
 const SearchBar = ({
   input,
@@ -21,31 +21,35 @@ const SearchBar = ({
   debouncedSearch,
 }: ISearchbar) => {
   const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
-  // const { dataSetter } = useChats();
-  // const { setIsModalOpen } = useModal();
-  // const { userData } = useUserData();
+  const { dataSetter } = useChats();
+  const { setIsModalOpen } = useModal();
+  const socket = useSocket();
 
-  //TODO: FIX THIS ERROR
-  // const handleChats = async (toUserId: string) => {
-  //   if (userData?._id) {
-  //     setLoadingUserId(toUserId);
-  //     const response = await createNewChat({
-  //       ids: [userData._id, toUserId],
-  //       type: "direct",
-  //     });
-  //     const user = await getFriendData({ id: toUserId });
-  //     if (!user.data.photo) user.data.photo = "defaultProfilePhoto.jpg";
-  //     dataSetter({
-  //       name: user.data.fullName,
-  //       status: user.data.status,
-  //       photo: user.data.photo,
-  //       selectedChat: response.data._id,
-  //     });
-  //
-  //     setLoadingUserId(toUserId);
-  //     setIsModalOpen(false);
-  //   }
-  // };
+  const handleChats = async (id: string) => {
+    const handleGettingChats = (data: IGetChatData) => {
+      const user = data.chat.participants[0];
+      if (!user.photo) user.photo = "defaultProfilePhoto.jpg";
+
+      dataSetter({
+        name: user.fullName,
+        photo: user.photo,
+        status: user.status,
+        userId: user._id,
+        selectedChat: data.chat._id,
+        chatData: data,
+      });
+    };
+
+    if (socket) {
+      socket.emit("createNewChat", {
+        chatType: "direct",
+        participants: [id],
+      });
+      socket.on("getChats", handleGettingChats);
+    }
+
+    setIsModalOpen(false);
+  };
 
   const handleClear = () => {
     handleChange({

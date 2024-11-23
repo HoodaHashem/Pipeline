@@ -4,14 +4,15 @@ import { useUserData } from "../../../hooks/useUserData";
 import IncomingMsgs from "./IncomingMsgs";
 import OutgoingMsgs from "./OutgoingMsgs";
 import { useSocket } from "../../../hooks/useSocket";
+import { IMessage } from "../../../lib/interfaces";
 
 //TODO: FIX ALL THE ERRORS HERE
 const ChatMsgs = () => {
   const { chatData } = useChats();
   const { userData } = useUserData();
   const socket = useSocket();
-  const [messages, setMessages] = useState([]);
-  const messagesEndRef = useRef(null);
+  const [messages, setMessages] = useState<IMessage[]>([]);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (chatData?.messages) {
@@ -19,8 +20,8 @@ const ChatMsgs = () => {
     }
 
     if (socket) {
-      const handleReceivedMsg = (data) => {
-        if (chatData.chat._id === data.chatId) {
+      const handleReceivedMsg = (data: IMessage) => {
+        if (chatData?.chat._id === data.chatId) {
           setMessages((prev) => [...prev, data]);
         }
       };
@@ -43,7 +44,7 @@ const ChatMsgs = () => {
 
   return (
     <div className="transition-all duration-500 h-screen overflow-y-auto p-4 pb-0">
-      {messages.map((message) =>
+      {messages?.map((message) =>
         isMessageOutgoing(message.sender) ? (
           <OutgoingMsgs
             key={message._id}

@@ -32,12 +32,11 @@ const ContactList = () => {
       </h3>
       {contacts && contacts.length > 0 ? (
         <div className="divide-y divide-gray-300 dark:divide-gray-800 ">
-          {contacts?.map((ele: IChatData, idx) => {
-            //TODO: PLEASE SOLVE THIS ERROR
+          {contacts?.map((ele: IChatData) => {
             const otherParticipent = ele.participants[0];
             return (
               <Contact
-                key={idx}
+                key={ele._id}
                 src={otherParticipent.photo}
                 contactName={otherParticipent.fullName}
                 status={otherParticipent.status}
@@ -52,7 +51,7 @@ const ContactList = () => {
         </div>
       ) : (
         <h3 className="uppercase text-center transition-colors duration-500 text-sm font-semibold  text-gray-400 dark:text-gray-600 mb-1">
-          There Is No Friends
+          There Is No Chats
         </h3>
       )}
     </div>

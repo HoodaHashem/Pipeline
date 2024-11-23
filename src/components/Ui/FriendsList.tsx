@@ -5,7 +5,7 @@ import { useState } from "react";
 import SecondaryLoader from "../App/Loaders/SecondaryLoader";
 import useModal from "../../hooks/useModal";
 import { useSocket } from "../../hooks/useSocket";
-import { ICreateChat } from "../../lib/interfaces";
+import { IGetChatData } from "../../lib/interfaces";
 
 const FriendsList = ({
   src = `defaultProfilePhoto.jpg`,
@@ -18,10 +18,9 @@ const FriendsList = ({
   const { setIsModalOpen } = useModal();
   const socket = useSocket();
 
-  //TODO: SOLVE THIS TYPEING ERROR
   const handleChats = async () => {
     setIsLoading(true);
-    const handleGettingChats = (data: ICreateChat) => {
+    const handleGettingChats = (data: IGetChatData) => {
       const user = data.chat.participants[0];
       if (!user.photo) user.photo = "defaultProfilePhoto.jpg";
 

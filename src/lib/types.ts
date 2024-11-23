@@ -1,4 +1,4 @@
-import { IChatData } from "./interfaces";
+import { IChatData, IGetChatData } from "./interfaces";
 
 export type inputType = "number" | "email" | "password" | "text";
 
@@ -30,4 +30,5 @@ export type TChatsState = {
   photo: string | null;
   userId: string | null;
   isChatLoading: boolean;
+  chatData: IGetChatData | null;
 };

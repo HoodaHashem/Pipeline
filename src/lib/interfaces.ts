@@ -192,6 +192,32 @@ export interface IOverlayProps {
   isSmallScreen: boolean;
 }
 
+export interface IChat {
+  _id: string;
+  admins: string[];
+  lastMessage: IMessage;
+  participants: IParticipantData[];
+  type: "direct" | "group";
+  updatedAt: Date;
+}
+
+export interface IMessage {
+  chatId: string;
+  content: string;
+  contentType: "text" | "file";
+  createdAt: Date;
+  readBy: IUserData[];
+  sender: string;
+  status: "sent" | "deleverd" | "read";
+  _id: string;
+  updatedAt: Date;
+}
+
+export interface IGetChatData {
+  chat: IChat;
+  messages: IMessage[];
+}
+
 export interface IChatsContext {
   status: TChatsState["status"];
   name: TChatsState["name"];
@@ -199,6 +225,7 @@ export interface IChatsContext {
   photo: TChatsState["photo"];
   userId: TChatsState["userId"];
   isChatLoading: TChatsState["isChatLoading"];
+  chatData: TChatsState["chatData"];
   dataSetter: (newData: Partial<TChatsState>) => void;
 }
 
@@ -210,14 +237,12 @@ export interface IContact {
   status: string;
   userId: string;
   selectedChatId: string | null;
-
   setSelectedChatId: Dispatch<SetStateAction<string | null>>;
-  setIsChatLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface IChatData {
   _id: string;
-  lastMessage: string;
+  lastMessage: IMessage;
   participants: IParticipantData[];
 }
 
