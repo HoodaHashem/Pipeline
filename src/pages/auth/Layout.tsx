@@ -26,13 +26,8 @@ const AuthLayout = () => {
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
-        if (
-          error.message.includes("Failed to fetch") ||
-          error.message.includes("NetworkError")
-        ) {
           window.location.href = "/server-down";
           return;
-        }
       }
     }
   };

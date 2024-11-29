@@ -1,7 +1,7 @@
 import { endPointsType } from "../types";
 
-export const API_BASE_URL = "api.hoodadev.tech/api/v1";
-export const API_PUBLIC_URL = "api.hoodadev.tech/public";
+export const API_BASE_URL = "http://localhost:3000/api/v1";
+export const API_PUBLIC_URL = "http://localhost:3000/public";
 
 export const END_POINTS: endPointsType = {
   SIGN_IN: `${API_BASE_URL}/auth/signin`,
